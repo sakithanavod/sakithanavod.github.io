@@ -1,199 +1,770 @@
 <!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Portfolio Sakitha Navod</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>Sakitha Navod — Gameplay Programmer</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--bg: #111010;
+			--ink: #e8e4dc;
+			--red: #d63a2a;
+			--tan: #1c1b1a;
+			--gold: #c49a2a;
+			--gold-bg: #191508;
+			--rule: rgba(232,228,220,0.08);
+			--rule-strong: rgba(232,228,220,0.22);
+		}
+		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+		html { scroll-behavior: smooth; }
+		body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+		body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.018) 3px, rgba(0,0,0,0.018) 4px); pointer-events: none; z-index: 999; }
 
-		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
+		/* TICKER */
+		.ticker { background: var(--ink); color: var(--bg); font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em; padding: 0.45rem 0; overflow: hidden; white-space: nowrap; }
+		.ticker-inner { display: inline-block; animation: ticker 36s linear infinite; }
+		.ticker-inner span { margin: 0 3rem; }
+		.ticker-inner .sep { color: var(--red); margin: 0; }
+		.ticker-inner .gold { color: var(--gold); }
+		@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-				<!-- Intro -->
-					<div id="intro">
-						<h1>PORTFOLIO</h1>
-						<p>"Experianced game developer commited to crafting immersive gaming experiences"</p>
-					</div>
+		/* NAV — no logo, just links on left and icons on right */
+		nav {
+			border-bottom: 2px solid var(--ink);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 2rem;
+			height: 56px;
+		}
+		.nav-links { display: flex; gap: 2rem; list-style: none; }
+		.nav-links a { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--ink); border-bottom: 1px solid transparent; padding-bottom: 1px; transition: color 0.15s, border-color 0.15s; }
+		.nav-links a:hover { color: var(--red); border-color: var(--red); }
+		.nav-status { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,228,220,0.4); display: flex; align-items: center; gap: 0.5rem; }
+		.nav-status::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #3a9e5a; }
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">PORTFOLIO</a>
-					</header>
+		/* HERO */
+		#hero { border-bottom: 2px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; min-height: 88vh; }
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul class="links">
-							<li class="active"><a href="index.html">PROJECTS</a></li>
-							<li><a href="generic.html">ABOUT</a></li>
-							<li><a href="elements.html">RESUME</a></li>
-						</ul>
-						<ul class="icons">
-							<li><a href="https://www.linkedin.com/in/sakitha-amarsinghe/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-							<li><a href="https://www.youtube.com/channel/UCnXO5pQCNA7NwCBpLpCvmGA" class="icon brands fa-youtube"><span class="label">Youtube</span></a></li>
-							<li><a href="https://github.com/sakithanavod" class="icon brands fa-github"><span class="label">GitHub Personal</span></a></li>
-							<li><a href="https://github.com/ThatsUnreal" class="icon brands fa-github"><span class="label">GitHub Youtube</span></a></li>
-						</ul>
-					</nav>
+		.hero-left { border-right: 2px solid var(--ink); padding: 3.5rem 3rem; display: flex; flex-direction: column; justify-content: space-between; }
+		.hero-issue { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(232,228,220,0.35); display: flex; justify-content: space-between; margin-bottom: 3rem; }
+		.hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 11vw, 9.5rem); line-height: 0.88; letter-spacing: 0.03em; }
+		.hero-name .outline { color: transparent; -webkit-text-stroke: 2px var(--ink); }
+		.hero-name .red { color: var(--red); }
+		.hero-bottom { border-top: 1px solid var(--rule-strong); padding-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+		.hero-tagline { font-family: 'Space Mono', monospace; font-size: 0.72rem; line-height: 1.8; letter-spacing: 0.04em; color: rgba(232,228,220,0.5); text-transform: uppercase; max-width: 340px; }
+		.hero-cta-row { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
 
-				<!-- Main -->
-					<div id="main">
+		/* BUTTONS */
+		.btn-ink { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 0.75rem 1.5rem; background: var(--ink); color: var(--bg); border: 2px solid var(--ink); display: inline-block; transition: background 0.15s, border-color 0.15s; }
+		.btn-ink:hover { background: var(--red); border-color: var(--red); }
+		.btn-gold { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 0.75rem 1.5rem; background: var(--gold); color: #fff; border: 2px solid var(--gold); display: inline-block; transition: background 0.15s; }
+		.btn-gold:hover { background: #a07e1c; border-color: #a07e1c; }
+		.btn-outline { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 0.75rem 1.5rem; background: transparent; color: var(--ink); border: 2px solid var(--ink); display: inline-block; transition: background 0.15s, color 0.15s; }
+		.btn-outline:hover { background: var(--ink); color: var(--bg); }
 
-						<!-- Featured Post -->
-							<article class="post featured">
-								<header class="major">
-									<h2>SAKITHA NAVOD</h2>
-									<h4>Gameplay Programmer</h4>
-									<p>I am an experienced game developer with over 4+ years of experience specializing in game development and design. 
-										I hold a BSc. in Software Engineering and have worked on multiple large-scale projects. 
-										My expertise lies in programming languages such as C++, C#, and game engines such as Unreal Engine and Unity. 
-										My portfolio showcases a range of projects, from mobile games to PC, across various genres. I am committed to delivering high-quality games that provide an immersive gaming experience for players.</p>
-								</header>
-								
-							</article>
+		/* HERO RIGHT — tighter, no wasted space */
+		.hero-right { display: flex; flex-direction: column; }
 
-						<!-- Posts -->
-							<section class="posts">
-								<article>
-									<header>
-										<h2><a href="amb.html">Ambulance Life: A Paramedic Simulator</h2>
-									</header>
-									<a href="amb.html" class="image fit"><img src="images/amb.jpg" alt="" /></a>
-									<p>Dedicate your life to saving others. As soon as you receive the emergency call, speed off to the site of the accident in your ambulance, sirens wailing. Apply first aid and transport the seriously injured to hospital. Every second counts!</p>
-									<ul class="actions special">
-										<li><a href="amb.html" class="button">View</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="md.html">Monster's Layer</h2>
-									</header>
-									<a href="md.html" class="image fit"><img src="images/md_01.jpg" alt="" /></a>
-									<p>Defend the Monsters’ Layer. Kill heroes and collect their treasures. Play the Monsters’ side and loot foolish warriors who dare to explore your realm. Build up your forces, upgrade them and equip them with better weapons, skills and tricks to lure and kill even more shiny forces of the light.</p>
-									<ul class="actions special">
-										<li><a href="md.html" class="button">View</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="nero.html">Nero</h2>
-									</header>
-									<a href="nero.html" class="image fit"><img src="images/nero_01.jpg" alt="" /></a>
-									<p>NERO is a single-player stealth action game set in the jungles of asia. Track down and eliminate your targets deep into enemy territories and sabotage heavy guarded military bases with all the tools at your disposal. Upgrade your skills and experience this escapading campaign of shadows and fire!</p>
-									<ul class="actions special">
-										<li><a href="nero.html"  class="button">View</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="ss.html">Game Mechanic -Shadow Strike</h2>
-									</header>
-									<a href="ss.html" class="image fit"><img src="images/my_01.png" alt="" /></a>
-									<p>Break down “The Shadow Strike” ability from "Middle Earth:Shadow of Mordor" and implement the same mechanics using Unreal Engine. This ability is very satisfying to pull off because it also gives the option to chain together multiple Shadow Strikes against various enemies in different places. Which ultimately gives a feeling of great power and it helps to kill as many enemies quickly. </p>
-									<ul class="actions special">
-										<li><a href="ss.html"  class="button">View</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="wr.html">Game Mechanic -Wall Running</h2>
-									</header>
-									<a href="wr.html" class="image fit"><img src="images/my_02.JPG" alt="" /></a>
-									<p>Recreate Prince of Persia style horizontal wall running mechanic using Unreal Engine 4. This mechanic covers awesome stuff like angle comparison in 3D worlds, Line tracing, Vector comparison and many more.</p>
-									<ul class="actions special">
-										<li><a href="wr.html" class="button">View</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="sg.html">Game Mechanic -Sekiro Grappling</h2>
-									</header>
-									<a href="sg.html" class="image fit"><img src="images/my_03.jpg" alt="" /></a>
-									<p>Re-create the mechanic from the game- Sekiro Shadows Die Twice, which was grappling hook. While grapple systems seems less complex, but this system goes in to very deep regarding collision handling, animation mapping, object detection etc.
-										This grappling mechanism uses many things like off-screen indicators to display grapple points, distance and angle validations against player, using an arc path to travel between points are some of them.</p>
-									<ul class="actions special">
-										<li><a href="sg.html" class="button">View</a></li>
-									</ul>
-								</article>
-								<article>
-									<h2><a href="pzl.html">Project : Zero Lock</h2>
-										<a href="pzl.html" class="image fit"><img src="images/my_04.jpg" alt="" /></a>
-									<p>This is a small-scale Sci Fi puzzle game made with Unity. Player need to analyze the environment in order to open doors and proceed to the finish line fast as possible.</p>
-									<ul class="actions special">
-										<li><a href="pzl.html" class="button">View</a></li>
-									</ul>
-								</article>
-								<article>
-									<h2><a href="kd.html">Kid's Day: Simulation Game</h2>
-										<a href="kd.html" class="image fit"><img src="images/my_05.jpg" alt="" /></a>
-									<p>Kids day is game developed as a design project which simulates society and teach kids to how to behave in the society. This game will simulate scenarios such young teenagers usually face in daily life. Each of these decisions has it own outcome and it will affect the game play. Player's objective is to make the right decision according to the situation. This will help player to make the positive decision when they might face the same scenario as in the game.</p>
-									<ul class="actions special">
-										<li><a href="kd.html" class="button">View</a></li>
-									</ul>
-								</article>
-								<article>
-									<h2><a href="ab.html">Dynamic AI Behaviour: Reinforcement Learning</h2>
-										<a href="ab.html" class="image fit"><img src="images/my_06.jpg" alt="" /></a>
-									<p>Small game made to test the adaptive AI bahviour based on the player traits using reinforcement learning</p>
-									<ul class="actions special">
-										<li><a href="ab.html" class="button">View</a></li>
-									</ul>
-								</article>
-							</section>
+		/* Stats row */
+		.hero-stat-row { border-bottom: 1px solid var(--rule-strong); padding: 1.5rem 2.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+		.stat { display: flex; flex-direction: column; gap: 0.2rem; }
+		.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; line-height: 1; }
+		.stat-label { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,228,220,0.4); }
 
-						<!-- Footer -->
-					</div>
+		/* Specialisations — fills remaining space, no gap at bottom */
+		.hero-spec-block {
+			flex: 1;
+			padding: 1.75rem 2.5rem;
+			display: flex;
+			flex-direction: column;
+			gap: 1.25rem;
+		}
+		.spec-section-label { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(232,228,220,0.35); margin-bottom: 0.5rem; }
 
-				<!-- Footer -->
-					<footer id="footer">
-						<section>
-							<section class="alt">
-								<h3>Address</h3>
-								<p>6A Kirimatithanna<br />
-								Balangoda, Sri Lanka</p>
-							</section>
-							<section>
-								<h3>Phone</h3>
-								<p><a href="#">+94764218560</a></p>
-							</section>
-							<section>
-								<h3>Email</h3>
-								<p><a href="#">sakithanavod1994@gmail.com</a></p>
-							</section>
-							<section>
-								<h3>Social</h3>
-								<ul class="icons alt">
-									<li><a href="https://www.linkedin.com/in/sakitha-amarsinghe/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-								<li><a href="https://www.youtube.com/channel/UCnXO5pQCNA7NwCBpLpCvmGA" class="icon brands fa-youtube"><span class="label">Youtube</span></a></li>
-								<li><a href="https://github.com/sakithanavod" class="icon brands fa-github"><span class="label">GitHub Personal</span></a></li>
-								<li><a href="https://github.com/ThatsUnreal" class="icon brands fa-github"><span class="label">GitHub Youtube</span></a></li>
-								</ul>
-							</section>
-						</section>
-					</footer>
+		/* Tags fill naturally, wrapping to use vertical space */
+		.tags-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+		.htag { font-family: 'Space Mono', monospace; font-size: 0.65rem; padding: 0.4rem 0.9rem; border: 1px solid var(--rule-strong); letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.4; }
+		.htag.red { background: var(--red); color: #fff; border-color: var(--red); }
+		.htag.gold { background: var(--gold); color: #fff; border-color: var(--gold); }
 
-				<!-- Copyright -->
-					<div id="copyright">
-						<ul><li>&copy; sakithanavod</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
-					</div>
+		/* Engine quick-facts row */
+		.hero-engine-row {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 0.75rem;
+		}
+		.engine-box {
+			border: 1px solid var(--rule-strong);
+			padding: 0.85rem 1rem;
+			display: flex;
+			flex-direction: column;
+			gap: 0.2rem;
+		}
+		.engine-box-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.06em; }
+		.engine-box-sub { font-family: 'Space Mono', monospace; font-size: 0.56rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(232,228,220,0.4); }
+		.exp-list { display: flex; flex-direction: column; gap: 0; }
+		.exp-item { display: flex; gap: 0.85rem; align-items: flex-start; padding: 0.75rem 0; border-bottom: 1px solid var(--rule); position: relative; }
+		.exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+		.exp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rule-strong); flex-shrink: 0; margin-top: 4px; }
+		.exp-dot.red-dot { background: var(--red); box-shadow: 0 0 0 3px rgba(214,58,42,0.2); }
+		.exp-body { display: flex; flex-direction: column; gap: 0.1rem; }
+		.exp-role { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.06em; line-height: 1.1; }
+		.exp-company { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.06em; color: var(--ink); text-transform: uppercase; opacity: 0.7; }
+		.exp-meta { font-family: 'Space Mono', monospace; font-size: 0.56rem; letter-spacing: 0.04em; color: rgba(232,228,220,0.35); margin-top: 0.1rem; }
 
+		/* SECTION HEADERS */
+		.sec-header { border-bottom: 2px solid var(--ink); border-top: 2px solid var(--ink); display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 2rem; background: var(--ink); color: var(--bg); }
+		.sec-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.15em; }
+		.sec-num { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; opacity: 0.5; }
+
+		/* FEATURED */
+		.featured-pair { border-bottom: 2px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; }
+		.feat-card { display: flex; flex-direction: column; position: relative; border-right: 2px solid var(--ink); }
+		.feat-card:last-child { border-right: none; }
+		.feat-img-wrap { position: relative; overflow: hidden; height: 280px; border-bottom: 2px solid var(--ink); }
+		.feat-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(20%) contrast(1.05); transition: filter 0.4s; }
+		.feat-card:hover .feat-img-wrap img { filter: grayscale(0%); }
+		.feat-stamp { position: absolute; top: 1rem; left: 1rem; background: var(--red); color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; padding: 0.2rem 0.65rem; z-index: 2; }
+		.feat-stamp.blue { background: var(--ink); }
+		.feat-ext-badge { position: absolute; bottom: 1rem; right: 1rem; background: rgba(10,10,10,0.88); color: #c6d4df; font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.6rem; display: flex; align-items: center; gap: 0.4rem; text-decoration: none; transition: background 0.15s; z-index: 2; }
+		.feat-ext-badge:hover { background: var(--red); color: #fff; }
+		.feat-ext-badge::before { content: ''; display: inline-block; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+		.feat-ext-badge.steam::before { background: #c6d4df; }
+		.feat-ext-badge.fab-badge::before { background: var(--gold); }
+		.feat-content { padding: 2rem 2.5rem; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+		.feat-kicker { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 0.75rem; }
+		.feat-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.75rem); line-height: 1; letter-spacing: 0.04em; margin-bottom: 1rem; }
+		.feat-desc { font-size: 0.85rem; line-height: 1.8; color: rgba(232,228,220,0.55); flex: 1; margin-bottom: 1.25rem; }
+		.feat-skills { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.25rem; }
+		.fsk { font-family: 'Space Mono', monospace; font-size: 0.55rem; padding: 0.25rem 0.55rem; border: 1px solid var(--rule-strong); letter-spacing: 0.05em; text-transform: uppercase; color: rgba(232,228,220,0.45); }
+		.fsk.gold { border-color: rgba(196,154,42,0.4); color: var(--gold); }
+		.fsk.mp { background: var(--red); color: #fff; border-color: var(--red); }
+
+		/* FAB BANNER */
+		.fab-banner { border-bottom: 2px solid var(--ink); background: var(--gold-bg); display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 2rem; padding: 2rem 3rem; position: relative; overflow: hidden; }
+		.fab-banner::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--gold); }
+		.fab-icon-col { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+		.fab-icon { width: 72px; height: 72px; background: var(--ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+		.fab-icon img { width: 100%; height: 100%; object-fit: cover; }
+		.fab-pill { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.2rem 0.6rem; background: var(--gold); color: #fff; white-space: nowrap; }
+		.fab-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+		.fab-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.05em; line-height: 1; margin-bottom: 0.6rem; }
+		.fab-desc { font-size: 0.85rem; line-height: 1.75; color: rgba(232,228,220,0.55); max-width: 600px; }
+		.fab-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem; }
+		.fab-tag { font-family: 'Space Mono', monospace; font-size: 0.55rem; padding: 0.22rem 0.55rem; border: 1px solid rgba(196,154,42,0.35); color: var(--gold); letter-spacing: 0.05em; text-transform: uppercase; }
+		.fab-tag.mp { background: var(--red); color: #fff; border-color: var(--red); }
+		.fab-cta { display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-end; flex-shrink: 0; }
+		.fab-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1; color: var(--gold); text-align: right; }
+		.fab-stat-label { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,228,220,0.35); text-align: right; }
+
+		/* PROJECT GRID */
+		.proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 2px solid var(--ink); }
+		.proj-card { border-right: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); text-decoration: none; color: var(--ink); display: flex; flex-direction: column; position: relative; overflow: hidden; transition: background 0.15s; }
+		.proj-card:nth-child(3n) { border-right: none; }
+		.proj-card:hover { background: var(--tan); }
+		.proj-card:hover .proj-img { filter: grayscale(0%) contrast(1.05); }
+		.proj-card:hover .proj-arrow { opacity: 1; transform: translate(0,0); }
+		.proj-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; filter: grayscale(60%) contrast(1); transition: filter 0.3s; border-bottom: 1px solid var(--rule-strong); }
+		.proj-body { padding: 1.25rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+		.proj-type { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
+		.proj-type.gold-type { color: var(--gold); }
+		.proj-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 0.06em; line-height: 1.1; margin-bottom: 0.75rem; }
+		.proj-desc { font-size: 0.8rem; line-height: 1.75; color: rgba(232,228,220,0.5); flex: 1; }
+		.proj-footer { border-top: 1px solid var(--rule); padding: 0.75rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+		.proj-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+		.ptag { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.2rem 0.5rem; border: 1px solid var(--rule-strong); color: rgba(232,228,220,0.4); }
+		.ptag.gold { border-color: rgba(196,154,42,0.4); color: var(--gold); }
+		.proj-arrow { font-size: 0.9rem; color: var(--red); opacity: 0; transform: translate(-4px, 4px); transition: opacity 0.2s, transform 0.2s; }
+		.proj-arrow.gold-arrow { color: var(--gold); }
+		.proj-card.fab-card { background: var(--gold-bg); border: 1px solid rgba(196,154,42,0.25); }
+		.proj-card.fab-card:nth-child(3n) { border-right: none; }
+		.proj-card.fab-card:hover { background: #221c06; }
+		.fab-card-header { position: relative; border-bottom: 1px solid rgba(196,154,42,0.3); overflow: hidden; }
+		.fab-card-header img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; filter: grayscale(20%) contrast(1.05); transition: filter 0.3s; }
+		.proj-card.fab-card:hover .fab-card-header img { filter: grayscale(0%) contrast(1.05); }
+		.fab-card-overlay-badge { position: absolute; top: 0.75rem; left: 0.75rem; background: var(--gold); color: #fff; font-family: 'Space Mono', monospace; font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.6rem; }
+		.fab-badge-text { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+		.proj-placeholder { background: var(--tan); cursor: default; }
+		.wip-card { background: #0d0d14; border-color: rgba(124,92,252,0.25) !important; }
+		.wip-card:hover { background: #11111e !important; }
+		.wip-img-wrap { width: 100%; aspect-ratio: 16/9; background: #0a0a12; border-bottom: 1px solid rgba(124,92,252,0.2); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+		.wip-card:hover .wip-img-wrap img { filter: saturate(1) brightness(1) !important; }
+		.wip-label { position: absolute; top: 0.75rem; right: 0.75rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.2em; color: rgba(124,92,252,0.7); border: 1px solid rgba(124,92,252,0.3); padding: 0.15rem 0.6rem; }
+		.wip-type { color: rgba(124,92,252,0.8) !important; }
+
+		/* ABOUT — with photo */
+		.about-wrap { border-bottom: 2px solid var(--ink); display: grid; grid-template-columns: 3fr 2fr 2fr; }
+		.about-left { border-right: 2px solid var(--ink); padding: 4rem 3rem; }
+		.about-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 4vw, 3.5rem); line-height: 1; letter-spacing: 0.04em; margin-bottom: 2rem; }
+		.about-headline em { font-style: normal; color: transparent; -webkit-text-stroke: 2px var(--ink); }
+		.about-body { font-size: 0.92rem; line-height: 1.9; color: rgba(232,228,220,0.55); max-width: 460px; margin-bottom: 1rem; }
+
+		/* Photo column */
+		.about-photo-col { border-right: 2px solid var(--ink); position: relative; overflow: hidden; min-height: 400px; }
+		.about-photo-col img { width: 100%; height: 100%; min-height: 400px; object-fit: cover; object-position: top center; display: block; filter: grayscale(15%) contrast(1.05); position: absolute; top: 0; left: 0; }
+		.photo-label { position: absolute; bottom: 0; left: 0; right: 0; background: var(--ink); color: var(--bg); font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1rem; display: flex; justify-content: space-between; }
+
+		/* HOBBIES SECTION */
+		.hobbies-section { border-bottom: 2px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; }
+		.hobby-big-card { display: flex; flex-direction: column; border-right: 2px solid var(--ink); }
+		.hobby-big-card:last-child { border-right: none; }
+		.hobby-big-img { position: relative; height: 260px; overflow: hidden; border-bottom: 2px solid var(--ink); }
+		.hobby-big-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; filter: grayscale(30%) contrast(1.1); transition: filter 0.4s; }
+		.hobby-big-card:hover .hobby-big-img img { filter: grayscale(0%) contrast(1); }
+		.hobby-big-stamp { position: absolute; top: 1rem; left: 1rem; background: var(--ink); color: var(--bg); font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; padding: 0.2rem 0.65rem; }
+		.hobby-big-content { padding: 2.5rem 3rem; flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
+		.hobby-big-kicker { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); }
+		.hobby-big-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.04em; line-height: 1; }
+		.hobby-big-desc { font-size: 0.88rem; line-height: 1.85; color: rgba(232,228,220,0.55); flex: 1; }
+		.hobby-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.25rem; }
+		.about-right { padding: 3rem 2.5rem; }
+		.skills-header { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.1em; margin-bottom: 2rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule-strong); }
+		.skill-row { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 1.25rem; }
+		.skill-meta { display: flex; justify-content: space-between; align-items: baseline; }
+		.skill-name { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; text-transform: uppercase; }
+		.skill-pct { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--red); letter-spacing: 0.05em; }
+		.bar-outer { height: 3px; background: var(--rule-strong); }
+		.bar-inner { height: 100%; background: var(--ink); position: relative; }
+		.bar-inner::after { content: ''; position: absolute; right: 0; top: -2px; width: 7px; height: 7px; background: var(--red); }
+
+		/* CONTACT */
+		.contact-wrap { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--ink); }
+		.contact-left { padding: 5rem 3rem; background: #0a0a0a; color: var(--bg); border-right: 2px solid var(--ink); }
+		.contact-big { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 9vw, 7.5rem); line-height: 0.88; letter-spacing: 0.03em; margin-bottom: 2rem; color: #ffffff; }
+		.contact-big .red { color: var(--red); }
+		.contact-sub { font-family: 'Space Mono', monospace; font-size: 0.7rem; line-height: 1.9; letter-spacing: 0.05em; color: rgba(232,228,220,0.65); margin-bottom: 2.5rem; }
+		.email-link { font-family: 'Space Mono', monospace; font-size: 0.78rem; color: #ffffff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.35); padding-bottom: 2px; letter-spacing: 0.04em; transition: color 0.15s, border-color 0.15s; }
+		.email-link:hover { color: var(--red); border-color: var(--red); }
+		.contact-right { padding: 4rem 3rem; display: flex; flex-direction: column; justify-content: space-between; }
+		.contact-links-header { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(232,228,220,0.35); margin-bottom: 1.5rem; }
+		.clink { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; border-bottom: 1px solid var(--rule-strong); text-decoration: none; color: var(--ink); transition: padding-left 0.2s, color 0.2s; }
+		.clink:hover { padding-left: 0.75rem; color: var(--red); }
+		.clink-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.1em; }
+		.clink-handle { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.06em; color: rgba(232,228,220,0.35); }
+		.footer-base { border-top: 2px solid var(--ink); display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--ink); color: var(--bg); }
+		.footer-copy, .footer-loc { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; opacity: 0.4; }
+
+		@media (max-width: 960px) {
+			#hero, .featured-pair, .about-wrap, .contact-wrap { grid-template-columns: 1fr; }
+			.hero-left, .feat-card, .about-left, .about-photo-col, .contact-left { border-right: none; border-bottom: 2px solid var(--ink); }
+			.feat-card:last-child { border-bottom: none; }
+			.hero-stat-row { grid-template-columns: repeat(2, 1fr); }
+			.proj-grid { grid-template-columns: 1fr 1fr; }
+			.proj-card:nth-child(3n) { border-right: 1px solid var(--rule-strong); }
+			.proj-card:nth-child(2n) { border-right: none; }
+			.fab-banner { grid-template-columns: 1fr; }
+			.fab-cta { align-items: flex-start; flex-direction: row; align-items: center; }
+			.about-photo-col { min-height: 320px; }
+			.hobbies-section { grid-template-columns: 1fr; }
+			.hobby-big-card { border-right: none; border-bottom: 2px solid var(--ink); }
+			nav .nav-status { display: none; }
+		}
+	</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+	<span class="ticker-inner">
+		<span>GAMEPLAY PROGRAMMER</span><span class="sep"> // </span>
+		<span>UNREAL ENGINE 5</span><span class="sep"> // </span>
+		<span class="gold">&#9733; FAB MARKETPLACE PUBLISHER</span><span class="sep"> // </span>
+		<span>SONIC INTERACTION SYSTEM</span><span class="sep"> // </span>
+		<span>MULTIPLAYER READY</span><span class="sep"> // </span>
+		<span>POLICE SIMULATOR: PATROL OFFICERS</span><span class="sep"> // </span>
+		<span>AMBULANCE LIFE</span><span class="sep"> // </span>
+		<span>C++ &amp; C#</span><span class="sep"> // </span>
+		<span>6+ YEARS EXPERIENCE</span><span class="sep"> // </span>
+		<span>SAKITHA NAVOD AMARASINGHE</span><span class="sep"> // </span>
+		<span>GAMEPLAY PROGRAMMER</span><span class="sep"> // </span>
+		<span>UNREAL ENGINE 5</span><span class="sep"> // </span>
+		<span class="gold">&#9733; FAB MARKETPLACE PUBLISHER</span><span class="sep"> // </span>
+		<span>SONIC INTERACTION SYSTEM</span><span class="sep"> // </span>
+		<span>MULTIPLAYER READY</span><span class="sep"> // </span>
+		<span>POLICE SIMULATOR: PATROL OFFICERS</span><span class="sep"> // </span>
+		<span>AMBULANCE LIFE</span><span class="sep"> // </span>
+		<span>C++ &amp; C#</span><span class="sep"> // </span>
+		<span>6+ YEARS EXPERIENCE</span><span class="sep"> // </span>
+		<span>SAKITHA NAVOD AMARASINGHE</span><span class="sep"> // </span>
+	</span>
+</div>
+
+<!-- NAV — no logo button -->
+<nav>
+	<ul class="nav-links">
+		<li><a href="#projects">Projects</a></li>
+		<li><a href="#marketplace">Marketplace</a></li>
+		<li><a href="#about">About</a></li>
+		<li><a href="images/sakitha_navod_cv.pdf" download>Download CV</a></li>
+		<li><a href="#contact">Contact</a></li>
+	</ul>
+	<span class="nav-status">Colombo, Sri Lanka &nbsp;·&nbsp; Available for work</span>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+	<div class="hero-left">
+		<div class="hero-issue">
+			<span>PORTFOLIO &mdash; 2026</span>
+			<span>VOL. 01 &nbsp;//&nbsp; GAMEPLAY SYSTEMS</span>
+		</div>
+		<h1 class="hero-name">
+			<div>SAKITHA</div>
+			<div class="outline">NAVOD</div>
+			<div class="red" style="font-size:clamp(1.8rem,4.5vw,3.8rem); letter-spacing:0.08em; line-height:1.2; margin-top:0.2rem;">GAMEPLAY PROGRAMMER</div>
+		</h1>
+		<div class="hero-bottom">
+			<p class="hero-tagline">Crafting the systems that make<br>games feel alive — 6+ years<br>across AAA simulators &amp; action games.</p>
+			<div class="hero-cta-row">
+				<a href="#projects" class="btn-ink">See Work</a>
+				<a href="images/sakitha_navod_cv.pdf" download class="btn-outline">Download CV &darr;</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="hero-right">
+		<!-- 4 stats in one row -->
+		<div class="hero-stat-row">
+			<div class="stat"><span class="stat-num">6+</span><span class="stat-label">Yrs experience</span></div>
+			<div class="stat"><span class="stat-num">SWE</span><span class="stat-label">Software Engineer</span></div>
+			<div class="stat"><span class="stat-num">UE5</span><span class="stat-label">Primary engine</span></div>
+			<div class="stat"><span class="stat-num">C++</span><span class="stat-label">Primary language</span></div>
+		</div>
+
+		<!-- Specialisations — fills all remaining height cleanly -->
+		<div class="hero-spec-block">
+			<div>
+				<div class="spec-section-label">Specialisations</div>
+				<div class="tags-list">
+					<span class="htag red">Gameplay Systems</span>
+					<span class="htag gold">Software Engineer</span>
+					<span class="htag">Game Programming</span>
+					<span class="htag">AI Behaviour</span>
+					<span class="htag">Game Development</span>
+					<span class="htag">Multiplayer / Netcode</span>
+					<span class="htag">Animation Systems</span>
+					<span class="htag">Physics</span>
+					<span class="htag">RL / ML-Agents</span>
+					<span class="htag">Raylib</span>
+					<span class="htag">OpenGL / GLSL</span>
+					<span class="htag">Graphics Programming</span>
+					<span class="htag">BSc. Soft. Eng.</span>
+				</div>
 			</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<div>
+				<div class="spec-section-label">Engines &amp; Tools</div>
+				<div class="hero-engine-row">
+					<div class="engine-box">
+						<span class="engine-box-title">Unreal Engine 5</span>
+						<span class="engine-box-sub">C++ &nbsp;/&nbsp; Blueprints &nbsp;/&nbsp; Plugins</span>
+					</div>
+					<div class="engine-box">
+						<span class="engine-box-title">Unity</span>
+						<span class="engine-box-sub">C# &nbsp;/&nbsp; ML-Agents &nbsp;/&nbsp; Mobile</span>
+					</div>
+				</div>
+			</div>
 
-	</body>
+			<div>
+				<div class="spec-section-label">Experience</div>
+				<div class="exp-list">
+					<div class="exp-item">
+						<div class="exp-dot red-dot"></div>
+						<div class="exp-body">
+							<div class="exp-role">Unreal Engine Programmer</div>
+							<div class="exp-company">Aesir Interactive GmbH</div>
+							<div class="exp-meta">Oct 2023 — Apr 2026 &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Remote</div>
+						</div>
+					</div>
+					<div class="exp-item">
+						<div class="exp-dot"></div>
+						<div class="exp-body">
+							<div class="exp-role">Gameplay Programmer</div>
+							<div class="exp-company">CreativeForge Games</div>
+							<div class="exp-meta">Jun 2022 — Oct 2023 &nbsp;·&nbsp; Contract</div>
+						</div>
+					</div>
+					<div class="exp-item">
+						<div class="exp-dot"></div>
+						<div class="exp-body">
+							<div class="exp-role">Software Engineer</div>
+							<div class="exp-company">Arimac Digital</div>
+							<div class="exp-meta">Feb 2019 — May 2022 &nbsp;·&nbsp; Full-time</div>
+						</div>
+					</div>
+					<div class="exp-item">
+						<div class="exp-dot"></div>
+						<div class="exp-body">
+							<div class="exp-role">Game Developer</div>
+							<div class="exp-company">Arimac Digital</div>
+							<div class="exp-meta">Sep 2018 — Mar 2019 &nbsp;·&nbsp; Internship</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<div class="spec-section-label">Education</div>
+				<div class="tags-list">
+					<span class="htag">BSc. Software Engineering</span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<!-- FEATURED PROJECTS -->
+<div class="sec-header">
+	<h2>Featured Projects</h2>
+	<span class="sec-num">01 / SHIPPED TITLES</span>
+</div>
+<div class="featured-pair">
+	<div class="feat-card">
+		<div class="feat-img-wrap">
+			<img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/997010/header.jpg" alt="Police Simulator: Patrol Officers"/>
+			<div class="feat-stamp blue">On Steam</div>
+			<a href="https://store.steampowered.com/app/997010/Police_Simulator_Patrol_Officers/" class="feat-ext-badge steam" target="_blank" rel="noopener">View on Steam &rarr;</a>
+		</div>
+		<div class="feat-content">
+			<div>
+				<div class="feat-kicker">PC &nbsp;·&nbsp; Xbox &nbsp;·&nbsp; PlayStation &nbsp;//&nbsp; Unreal Engine 4 &nbsp;//&nbsp; Multiplayer &nbsp;//&nbsp;C++</div>
+				<h2 class="feat-title">Police Simulator:<br>Patrol Officers</h2>
+				<p class="feat-desc">Experience the daily life of a police officer patrolling the streets of Brighton. Direct traffic, investigate crimes, and enforce the law in this large-scale open-world simulation built in Unreal Engine 4.</p>
+				<div class="feat-skills">
+					<span class="fsk">Unreal Engine 4</span><span class="fsk">C++</span><span class="fsk">Game Programming</span><span class="fsk">PC</span><span class="fsk">Xbox</span><span class="fsk">PlayStation</span>
+				</div>
+			</div>
+			<a href="https://store.steampowered.com/app/997010/Police_Simulator_Patrol_Officers/" class="btn-ink" style="align-self:flex-start;" target="_blank" rel="noopener">View on Steam &rarr;</a>
+		</div>
+	</div>
+	<div class="feat-card">
+		<div class="feat-img-wrap">
+			<img src="images/amb.jpg" alt="Ambulance Life: A Paramedic Simulator"/>
+			<div class="feat-stamp">Latest Release</div>
+			<a href="https://store.steampowered.com/agecheck/app/1926520/" class="feat-ext-badge steam" target="_blank" rel="noopener">View on Steam &rarr;</a>
+		</div>
+		<div class="feat-content">
+			<div>
+				<div class="feat-kicker">PC &nbsp;·&nbsp; Xbox &nbsp;·&nbsp; PlayStation &nbsp;//&nbsp; Unreal Engine 5 &nbsp;//&nbsp; C++</div>
+				<h2 class="feat-title">Ambulance Life:<br>A Paramedic Simulator</h2>
+				<p class="feat-desc">Race to accident scenes with sirens wailing, apply first aid under pressure, and transport the critically injured to hospital. A high-fidelity simulation where every second costs a life.</p>
+				<div class="feat-skills">
+					<span class="fsk">Unreal Engine 5</span><span class="fsk">C++</span><span class="fsk">Game Programming</span><span class="fsk">PC</span><span class="fsk">Xbox</span><span class="fsk">PlayStation</span>
+				</div>
+			</div>
+			<a href="https://store.steampowered.com/agecheck/app/1926520/" class="btn-ink" style="align-self:flex-start;" target="_blank" rel="noopener">View on Steam &rarr;</a>
+		</div>
+	</div>
+</div>
+
+<!-- FAB MARKETPLACE BANNER -->
+<div class="sec-header" id="marketplace">
+	<h2>Fab Marketplace</h2>
+	<span class="sec-num">02 / PUBLISHED ASSET</span>
+</div>
+<div class="fab-banner">
+	<div class="fab-icon-col">
+		<div class="fab-icon">
+			<img src="images/fab.jpg" alt="Sonic Interaction System preview"/>
+		</div>
+		<span class="fab-pill">Published</span>
+	</div>
+	<div>
+		<div class="fab-eyebrow">Epic Games Fab Marketplace &nbsp;//&nbsp; Unreal Engine 5 Plugin</div>
+		<h2 class="fab-title">Sonic Interaction System</h2>
+		<p class="fab-desc">A fully modular, plug-and-play interaction framework for Unreal Engine 5. Designed to drop into any project with minimal setup — built around clean component architecture, Blueprint-exposed APIs, and extensible interaction channels. Fully multiplayer-ready with replicated interaction states out of the box.</p>
+		<div class="fab-tags">
+			<span class="fab-tag">Unreal Engine 5</span>
+			<span class="fab-tag">C++</span>
+			<span class="fab-tag">Modular System</span>
+			<span class="fab-tag">Blueprints</span>
+			<span class="fab-tag">Plugin</span>
+			<span class="fab-tag mp">&#9632; Multiplayer Ready</span>
+			<span class="fab-tag">Game Development</span>
+		</div>
+	</div>
+	<div class="fab-cta">
+		<div>
+			<div class="fab-stat-num">FAB</div>
+			<div class="fab-stat-label">Marketplace</div>
+		</div>
+		<a href="https://www.fab.com/listings/bc6b11d0-25d7-4d62-bd16-0e4e02577c2d" class="btn-gold" target="_blank" rel="noopener">Get on Fab &rarr;</a>
+	</div>
+</div>
+
+<!-- ALL PROJECTS -->
+<div class="sec-header" id="projects">
+	<h2>All Projects</h2>
+	<span class="sec-num">03 / SELECTED WORK</span>
+</div>
+<div class="proj-grid">
+	<!-- Sonic Interaction System card -->
+	<a href="https://www.fab.com/listings/bc6b11d0-25d7-4d62-bd16-0e4e02577c2d" class="proj-card fab-card" target="_blank" rel="noopener">
+		<div class="fab-card-header">
+			<img src="images/fab.jpg" alt="Sonic Interaction System"/>
+			<span class="fab-card-overlay-badge">&#9733; Fab Marketplace</span>
+		</div>
+		<div class="proj-body">
+			<div class="proj-type gold-type">UE5 Plugin &nbsp;//&nbsp; Modular System</div>
+			<h3 class="proj-title">Sonic Interaction System</h3>
+			<p class="proj-desc">Published production-ready modular interaction framework for UE5. Drop in, extend via Blueprints, multiplayer replicated out of the box.</p>
+		</div>
+		<div class="proj-footer" style="border-top:1px solid rgba(196,154,42,0.3);">
+			<div class="proj-tags"><span class="ptag gold">UE5</span><span class="ptag gold">C++</span><span class="ptag gold">Multiplayer</span></div>
+			<span class="proj-arrow gold-arrow">&#x2197;</span>
+		</div>
+	</a>
+
+	<a href="https://store.steampowered.com/app/2003060/Monsters_Domain_Prologue/" class="proj-card" target="_blank" rel="noopener">
+		<img src="images/md_01.jpg" alt="Monster's Layer" class="proj-img"/>
+		<div class="proj-body">
+			<div class="proj-type">First-Person Action RPG</div>
+			<h3 class="proj-title">Monster's Layer</h3>
+			<p class="proj-desc">A first-person action RPG where you fight, loot, and level up deep in the monsters' domain. Built combat, locomotion, inventory, and quest systems.</p>
+		</div>
+		<div class="proj-footer">
+			<div class="proj-tags"><span class="ptag">Unreal</span><span class="ptag">C++</span><span class="ptag">PC</span></div>
+			<span class="proj-arrow">&#x2197;</span>
+		</div>
+	</a>
+	<a href="https://store.steampowered.com/app/1448610/NIRO/" class="proj-card" target="_blank" rel="noopener">
+		<img src="images/nero_01.jpg" alt="Nero" class="proj-img"/>
+		<div class="proj-body">
+			<div class="proj-type">Stealth Action</div>
+			<h3 class="proj-title">Nero</h3>
+			<p class="proj-desc">Single-player stealth action in the Asian jungles. Infiltrate bases, eliminate targets, survive the shadows.</p>
+		</div>
+		<div class="proj-footer">
+			<div class="proj-tags"><span class="ptag">Unreal</span><span class="ptag">AI</span><span class="ptag">PC</span></div>
+			<span class="proj-arrow">&#x2197;</span>
+		</div>
+	</a>
+	<a href="https://www.youtube.com/watch?v=S7kljnY-ZXQ" class="proj-card" target="_blank" rel="noopener">
+		<img src="images/my_01.png" alt="Shadow Strike" class="proj-img"/>
+		<div class="proj-body">
+			<div class="proj-type">Mechanic — Shadow of Mordor</div>
+			<h3 class="proj-title">Shadow Strike</h3>
+			<p class="proj-desc">Full recreation of the Shadow Strike chain-kill system from Middle Earth: Shadow of Mordor.</p>
+		</div>
+		<div class="proj-footer">
+			<div class="proj-tags"><span class="ptag">Unreal</span><span class="ptag">Systems</span></div>
+			<span class="proj-arrow">&#x2197;</span>
+		</div>
+	</a>
+	<a href="https://www.youtube.com/watch?v=_CXXC1380V8" class="proj-card" target="_blank" rel="noopener">
+		<img src="images/my_02.JPG" alt="Wall Running" class="proj-img"/>
+		<div class="proj-body">
+			<div class="proj-type">Mechanic — Prince of Persia</div>
+			<h3 class="proj-title">Wall Running</h3>
+			<p class="proj-desc">Horizontal wall-running covering 3D angle comparison, line tracing, and vector maths in UE4.</p>
+		</div>
+		<div class="proj-footer">
+			<div class="proj-tags"><span class="ptag">UE4</span><span class="ptag">Physics</span></div>
+			<span class="proj-arrow">&#x2197;</span>
+		</div>
+	</a>
+	<a href="https://www.youtube.com/watch?v=VHyG4EhyLEM" class="proj-card" target="_blank" rel="noopener">
+		<img src="images/my_03.jpg" alt="Sekiro Grapple" class="proj-img"/>
+		<div class="proj-body">
+			<div class="proj-type">Mechanic — Sekiro</div>
+			<h3 class="proj-title">Grappling Hook</h3>
+			<p class="proj-desc">Deep replication of Sekiro's grapple — off-screen indicators, arc travel, collision, and angle validation.</p>
+		</div>
+		<div class="proj-footer">
+			<div class="proj-tags"><span class="ptag">Unreal</span><span class="ptag">Animation</span></div>
+			<span class="proj-arrow">&#x2197;</span>
+		</div>
+	</a>
+	<a href="https://youtu.be/DhyttVPqzkA" class="proj-card" target="_blank" rel="noopener">
+		<img src="images/my_04.jpg" alt="Project Zero Lock" class="proj-img"/>
+		<div class="proj-body">
+			<div class="proj-type">Puzzle / Sci-Fi</div>
+			<h3 class="proj-title">Project: Zero Lock</h3>
+			<p class="proj-desc">Small-scale Sci-Fi puzzle game in Unity. Analyze environments, open doors, race to the finish.</p>
+		</div>
+		<div class="proj-footer">
+			<div class="proj-tags"><span class="ptag">Unity</span><span class="ptag">C#</span></div>
+			<span class="proj-arrow">&#x2197;</span>
+		</div>
+	</a>
+	<a href="https://youtu.be/_PPYSeKynh8" class="proj-card" target="_blank" rel="noopener">
+		<img src="images/my_06.jpg" alt="Dynamic AI RL" class="proj-img"/>
+		<div class="proj-body">
+			<div class="proj-type">AI Research</div>
+			<h3 class="proj-title">Dynamic AI — RL</h3>
+			<p class="proj-desc">Adaptive enemy AI that learns from player behaviour in real-time using reinforcement learning.</p>
+		</div>
+		<div class="proj-footer">
+			<div class="proj-tags"><span class="ptag">RL</span><span class="ptag">ML-Agents</span></div>
+			<span class="proj-arrow">&#x2197;</span>
+		</div>
+	</a>
+	<a href="https://www.youtube.com/watch?v=Nffl9O8gPDE" class="proj-card wip-card" target="_blank" rel="noopener">
+		<div class="wip-img-wrap">
+			<img src="images/glide.png" alt="Batman Arkham Grapple Glide" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0;filter:saturate(0.7) brightness(0.85);transition:filter 0.3s;"/>
+			<div class="wip-label">WIP</div>
+		</div>
+		<div class="proj-body">
+			<div class="proj-type wip-type">Personal Project &nbsp;//&nbsp; In Progress</div>
+			<h3 class="proj-title">Batman Arkham<br>Grapple Glide</h3>
+			<p class="proj-desc">Replicating Batman Arkham's iconic grapple-glide traversal system in UE5 — including the momentum arc, glide physics, and dive-bomb-to-grapple chaining.</p>
+		</div>
+		<div class="proj-footer">
+			<div class="proj-tags"><span class="ptag">UE5</span><span class="ptag">C++</span><span class="ptag">Traversal</span></div>
+			<span class="proj-arrow">&#x2197;</span>
+		</div>
+	</a>
+</div>
+
+<!-- ABOUT — 3 columns: text / photo / skills -->
+<div class="sec-header" id="about">
+	<h2>About</h2>
+	<span class="sec-num">04 / THE DEV</span>
+</div>
+<div class="about-wrap">
+	<div class="about-left">
+		<h2 class="about-headline">Making games<br>feel <em>inevitable</em></h2>
+		<p class="about-body">I'm a gameplay programmer with 6+ years building systems that make games feel alive and immersive. I hold a BSc. in Software Engineering and have shipped multiple commercial titles across PC and console platforms, working with both indie and AA studios.</p>
+		<p class="about-body">I'm passionate about keeping up with the latest technology trends in the industry — whether that's new engine features, rendering techniques, or tools that push what's possible in real-time games. Above all, I'm driven to give players the best experience possible.</p>
+		<p class="about-body">Outside of work, I love playing Action RPGs, Horror, and First Person Shooters — genres that constantly push the boundaries of what gameplay systems can feel like.</p>
+
+	</div>
+
+	<!-- Photo -->
+	<div class="about-photo-col">
+		<img src="images/me.jpg" alt="Sakitha Navod"/>
+		<div class="photo-label">
+			<span>Sakitha Navod</span>
+			<span>Gameplay Programmer</span>
+		</div>
+	</div>
+
+	<div class="about-right">
+		<div class="skills-header">Skills</div>
+		<div class="skill-row">
+			<div class="skill-meta"><span class="skill-name">Unreal Engine 5</span><span class="skill-pct">92%</span></div>
+			<div class="bar-outer"><div class="bar-inner" style="width:92%"></div></div>
+		</div>
+		<div class="skill-row">
+			<div class="skill-meta"><span class="skill-name">C++</span><span class="skill-pct">90%</span></div>
+			<div class="bar-outer"><div class="bar-inner" style="width:90%"></div></div>
+		</div>
+		<div class="skill-row">
+			<div class="skill-meta"><span class="skill-name">Game Programming</span><span class="skill-pct">90%</span></div>
+			<div class="bar-outer"><div class="bar-inner" style="width:90%"></div></div>
+		</div>
+		<div class="skill-row">
+			<div class="skill-meta"><span class="skill-name">Game Development</span><span class="skill-pct">88%</span></div>
+			<div class="bar-outer"><div class="bar-inner" style="width:88%"></div></div>
+		</div>
+		<div class="skill-row">
+			<div class="skill-meta"><span class="skill-name">Unreal Engine (General)</span><span class="skill-pct">92%</span></div>
+			<div class="bar-outer"><div class="bar-inner" style="width:92%"></div></div>
+		</div>
+		<div class="skill-row">
+			<div class="skill-meta"><span class="skill-name">Unity (C#)</span><span class="skill-pct">82%</span></div>
+			<div class="bar-outer"><div class="bar-inner" style="width:82%"></div></div>
+		</div>
+		<div class="skill-row">
+			<div class="skill-meta"><span class="skill-name">AI &amp; NPC Behaviour</span><span class="skill-pct">80%</span></div>
+			<div class="bar-outer"><div class="bar-inner" style="width:80%"></div></div>
+		</div>
+	</div>
+</div>
+
+<!-- CURRENTLY LEARNING -->
+<div class="sec-header">
+	<h2>Currently Learning</h2>
+	<span class="sec-num">05 / SIDE INTERESTS</span>
+</div>
+<div class="hobbies-section">
+	<div class="hobby-big-card">
+		<div class="hobby-big-img">
+			<img src="images/raylib.png" alt="Raylib game framework"/>
+			<div class="hobby-big-stamp">Framework</div>
+		</div>
+		<div class="hobby-big-content">
+			<div class="hobby-big-kicker">Game Frameworks &nbsp;//&nbsp; C &nbsp;//&nbsp; Low-level</div>
+			<h3 class="hobby-big-title">Building with Raylib</h3>
+			<p class="hobby-big-desc">Stripping back the engine and building games from pure code. Learning the fundamentals that sit beneath every game engine — input, windowing, audio, 2D/3D rendering — using the Raylib framework. No abstractions, just the craft.</p>
+			<div class="hobby-tags">
+				<span class="htag">C Language</span>
+				<span class="htag">Raylib</span>
+				<span class="htag">Game Architecture</span>
+			</div>
+		</div>
+	</div>
+	<div class="hobby-big-card">
+		<div class="hobby-big-img">
+			<img src="images/gl.png" alt="OpenGL graphics programming"/>
+			<div class="hobby-big-stamp">Graphics</div>
+		</div>
+		<div class="hobby-big-content">
+			<div class="hobby-big-kicker">Graphics Programming &nbsp;//&nbsp; OpenGL &nbsp;//&nbsp; GLSL</div>
+			<h3 class="hobby-big-title">Graphics Programming with OpenGL</h3>
+			<p class="hobby-big-desc">Going deep on how pixels actually reach the screen. Studying the rendering pipeline, writing GLSL shaders, and understanding rasterization, lighting models, and GPU architecture — the knowledge that makes every visual decision intentional.</p>
+			<div class="hobby-tags">
+				<span class="htag">OpenGL</span>
+				<span class="htag">GLSL Shaders</span>
+				<span class="htag">Rendering Pipeline</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- CONTACT -->
+<div class="sec-header" id="contact">
+	<h2>Contact</h2>
+	<span class="sec-num">06 / GET IN TOUCH</span>
+</div>
+<div class="contact-wrap">
+	<div class="contact-left">
+		<h2 class="contact-big">LET'S<br>MAKE<br><span class="red">GAMES.</span></h2>
+		<p class="contact-sub">Open to new roles and collaborations.<br>Drop a line — I respond fast.</p>
+		<a href="mailto:sakithanavod1994@gmail.com" class="email-link">sakithanavod1994@gmail.com</a>
+	</div>
+	<div class="contact-right">
+		<div>
+			<div class="contact-links-header">Find me online</div>
+			<a href="https://www.fab.com/listings/bc6b11d0-25d7-4d62-bd16-0e4e02577c2d" class="clink" target="_blank" rel="noopener">
+				<span class="clink-label" style="color:var(--gold);">Fab Marketplace</span>
+				<span class="clink-handle">Sonic Interaction System &rarr;</span>
+			</a>
+			<a href="https://www.linkedin.com/in/sakitha-amarsinghe/" class="clink" target="_blank" rel="noopener">
+				<span class="clink-label">LinkedIn</span>
+				<span class="clink-handle">sakitha-amarsinghe &rarr;</span>
+			</a>
+			<a href="https://github.com/sakithanavod" class="clink" target="_blank" rel="noopener">
+				<span class="clink-label">GitHub</span>
+				<span class="clink-handle">sakithanavod &rarr;</span>
+			</a>
+			<a href="https://github.com/ThatsUnreal" class="clink" target="_blank" rel="noopener">
+				<span class="clink-label">GitHub (YT)</span>
+				<span class="clink-handle">ThatsUnreal &rarr;</span>
+			</a>
+			<a href="https://www.youtube.com/channel/UCnXO5pQCNA7NwCBpLpCvmGA" class="clink" target="_blank" rel="noopener">
+				<span class="clink-label">YouTube</span>
+				<span class="clink-handle">Channel &rarr;</span>
+			</a>
+		</div>
+		<div>
+			<div class="contact-links-header" style="margin-bottom:0.5rem;">Location</div>
+			<div style="font-family:'Space Mono',monospace; font-size:0.7rem; line-height:1.9; color:rgba(232,228,220,0.4);">
+				Colombo, Sri Lanka<br>+94 76 421 8560
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="footer-base">
+	<span class="footer-copy">&copy; 2026 Sakitha Navod Amarasinghe. All rights reserved.</span>
+	<span class="footer-loc">Colombo, Sri Lanka</span>
+</div>
+
+</body>
 </html>
