@@ -1,770 +1,732 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title>Sakitha Navod — Gameplay Programmer</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>document.documentElement.classList.add("js");</script>
+	<title>Sakitha Navod Amarasinghe — Gameplay Programmer (Unreal Engine, C++)</title>
+	<meta name="description" content="Gameplay programmer working in Unreal Engine and C++. Shipped work on EverRail, Ambulance Life: A Paramedic Simulator and Police Simulator: Patrol Officers at Aesir Interactive; author of the Sonic Interaction System plugin on Fab.">
+	<meta name="author" content="Sakitha Navod Amarasinghe">
+	<meta name="theme-color" content="#F4F0E8">
+	<meta name="color-scheme" content="light">
+	<link rel="canonical" href="https://sakithanavod.github.io/">
+	<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+	<!-- Open Graph / social -->
+	<meta property="og:type" content="profile">
+	<meta property="og:site_name" content="Sakitha Navod Amarasinghe">
+	<meta property="og:title" content="Sakitha Navod Amarasinghe — Gameplay Programmer">
+	<meta property="og:description" content="Gameplay programmer working in Unreal Engine and C++. Shipped work on EverRail, Ambulance Life and Police Simulator: Patrol Officers; author of the Sonic Interaction System plugin on Fab.">
+	<meta property="og:url" content="https://sakithanavod.github.io/">
+	<meta property="og:image" content="https://sakithanavod.github.io/images/web/og-card.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Sakitha Navod Amarasinghe, Gameplay Programmer — Unreal Engine and C++">
+	<meta property="profile:first_name" content="Sakitha Navod">
+	<meta property="profile:last_name" content="Amarasinghe">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Sakitha Navod Amarasinghe — Gameplay Programmer">
+	<meta name="twitter:description" content="Unreal Engine and C++ gameplay programmer. Shipped work on EverRail, Ambulance Life and Police Simulator: Patrol Officers.">
+	<meta name="twitter:image" content="https://sakithanavod.github.io/images/web/og-card.jpg">
+
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "Person",
+		"name": "Sakitha Navod Amarasinghe",
+		"jobTitle": "Gameplay Programmer",
+		"url": "https://sakithanavod.github.io/",
+		"image": "https://sakithanavod.github.io/images/web/portrait-480.webp",
+		"email": "mailto:sakithanavod1994@gmail.com",
+		"address": { "@type": "PostalAddress", "addressLocality": "Colombo", "addressCountry": "LK" },
+		"alumniOf": { "@type": "CollegeOrUniversity", "name": "University of Kelaniya" },
+		"knowsAbout": ["Unreal Engine", "C++", "Gameplay programming", "Gameplay Ability System", "Game AI", "Multiplayer replication"],
+		"sameAs": [
+			"https://www.linkedin.com/in/sakitha-amarsinghe/",
+			"https://github.com/sakithanavod",
+			"https://www.youtube.com/channel/UCnXO5pQCNA7NwCBpLpCvmGA",
+			"https://www.fab.com/listings/bc6b11d0-25d7-4d62-bd16-0e4e02577c2d"
+		]
+	}
+	</script>
+
 	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-	<style>
-		:root {
-			--bg: #111010;
-			--ink: #e8e4dc;
-			--red: #d63a2a;
-			--tan: #1c1b1a;
-			--gold: #c49a2a;
-			--gold-bg: #191508;
-			--rule: rgba(232,228,220,0.08);
-			--rule-strong: rgba(232,228,220,0.22);
-		}
-		*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-		html { scroll-behavior: smooth; }
-		body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
-		body::after { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.018) 3px, rgba(0,0,0,0.018) 4px); pointer-events: none; z-index: 999; }
-
-		/* TICKER */
-		.ticker { background: var(--ink); color: var(--bg); font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em; padding: 0.45rem 0; overflow: hidden; white-space: nowrap; }
-		.ticker-inner { display: inline-block; animation: ticker 36s linear infinite; }
-		.ticker-inner span { margin: 0 3rem; }
-		.ticker-inner .sep { color: var(--red); margin: 0; }
-		.ticker-inner .gold { color: var(--gold); }
-		@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-		/* NAV — no logo, just links on left and icons on right */
-		nav {
-			border-bottom: 2px solid var(--ink);
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			padding: 0 2rem;
-			height: 56px;
-		}
-		.nav-links { display: flex; gap: 2rem; list-style: none; }
-		.nav-links a { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--ink); border-bottom: 1px solid transparent; padding-bottom: 1px; transition: color 0.15s, border-color 0.15s; }
-		.nav-links a:hover { color: var(--red); border-color: var(--red); }
-		.nav-status { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,228,220,0.4); display: flex; align-items: center; gap: 0.5rem; }
-		.nav-status::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #3a9e5a; }
-
-		/* HERO */
-		#hero { border-bottom: 2px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; min-height: 88vh; }
-
-		.hero-left { border-right: 2px solid var(--ink); padding: 3.5rem 3rem; display: flex; flex-direction: column; justify-content: space-between; }
-		.hero-issue { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(232,228,220,0.35); display: flex; justify-content: space-between; margin-bottom: 3rem; }
-		.hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 11vw, 9.5rem); line-height: 0.88; letter-spacing: 0.03em; }
-		.hero-name .outline { color: transparent; -webkit-text-stroke: 2px var(--ink); }
-		.hero-name .red { color: var(--red); }
-		.hero-bottom { border-top: 1px solid var(--rule-strong); padding-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
-		.hero-tagline { font-family: 'Space Mono', monospace; font-size: 0.72rem; line-height: 1.8; letter-spacing: 0.04em; color: rgba(232,228,220,0.5); text-transform: uppercase; max-width: 340px; }
-		.hero-cta-row { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-
-		/* BUTTONS */
-		.btn-ink { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 0.75rem 1.5rem; background: var(--ink); color: var(--bg); border: 2px solid var(--ink); display: inline-block; transition: background 0.15s, border-color 0.15s; }
-		.btn-ink:hover { background: var(--red); border-color: var(--red); }
-		.btn-gold { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 0.75rem 1.5rem; background: var(--gold); color: #fff; border: 2px solid var(--gold); display: inline-block; transition: background 0.15s; }
-		.btn-gold:hover { background: #a07e1c; border-color: #a07e1c; }
-		.btn-outline { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 0.75rem 1.5rem; background: transparent; color: var(--ink); border: 2px solid var(--ink); display: inline-block; transition: background 0.15s, color 0.15s; }
-		.btn-outline:hover { background: var(--ink); color: var(--bg); }
-
-		/* HERO RIGHT — tighter, no wasted space */
-		.hero-right { display: flex; flex-direction: column; }
-
-		/* Stats row */
-		.hero-stat-row { border-bottom: 1px solid var(--rule-strong); padding: 1.5rem 2.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-		.stat { display: flex; flex-direction: column; gap: 0.2rem; }
-		.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; line-height: 1; }
-		.stat-label { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,228,220,0.4); }
-
-		/* Specialisations — fills remaining space, no gap at bottom */
-		.hero-spec-block {
-			flex: 1;
-			padding: 1.75rem 2.5rem;
-			display: flex;
-			flex-direction: column;
-			gap: 1.25rem;
-		}
-		.spec-section-label { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(232,228,220,0.35); margin-bottom: 0.5rem; }
-
-		/* Tags fill naturally, wrapping to use vertical space */
-		.tags-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-		.htag { font-family: 'Space Mono', monospace; font-size: 0.65rem; padding: 0.4rem 0.9rem; border: 1px solid var(--rule-strong); letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.4; }
-		.htag.red { background: var(--red); color: #fff; border-color: var(--red); }
-		.htag.gold { background: var(--gold); color: #fff; border-color: var(--gold); }
-
-		/* Engine quick-facts row */
-		.hero-engine-row {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 0.75rem;
-		}
-		.engine-box {
-			border: 1px solid var(--rule-strong);
-			padding: 0.85rem 1rem;
-			display: flex;
-			flex-direction: column;
-			gap: 0.2rem;
-		}
-		.engine-box-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.06em; }
-		.engine-box-sub { font-family: 'Space Mono', monospace; font-size: 0.56rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(232,228,220,0.4); }
-		.exp-list { display: flex; flex-direction: column; gap: 0; }
-		.exp-item { display: flex; gap: 0.85rem; align-items: flex-start; padding: 0.75rem 0; border-bottom: 1px solid var(--rule); position: relative; }
-		.exp-item:last-child { border-bottom: none; padding-bottom: 0; }
-		.exp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rule-strong); flex-shrink: 0; margin-top: 4px; }
-		.exp-dot.red-dot { background: var(--red); box-shadow: 0 0 0 3px rgba(214,58,42,0.2); }
-		.exp-body { display: flex; flex-direction: column; gap: 0.1rem; }
-		.exp-role { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.06em; line-height: 1.1; }
-		.exp-company { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.06em; color: var(--ink); text-transform: uppercase; opacity: 0.7; }
-		.exp-meta { font-family: 'Space Mono', monospace; font-size: 0.56rem; letter-spacing: 0.04em; color: rgba(232,228,220,0.35); margin-top: 0.1rem; }
-
-		/* SECTION HEADERS */
-		.sec-header { border-bottom: 2px solid var(--ink); border-top: 2px solid var(--ink); display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 2rem; background: var(--ink); color: var(--bg); }
-		.sec-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.15em; }
-		.sec-num { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; opacity: 0.5; }
-
-		/* FEATURED */
-		.featured-pair { border-bottom: 2px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; }
-		.feat-card { display: flex; flex-direction: column; position: relative; border-right: 2px solid var(--ink); }
-		.feat-card:last-child { border-right: none; }
-		.feat-img-wrap { position: relative; overflow: hidden; height: 280px; border-bottom: 2px solid var(--ink); }
-		.feat-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(20%) contrast(1.05); transition: filter 0.4s; }
-		.feat-card:hover .feat-img-wrap img { filter: grayscale(0%); }
-		.feat-stamp { position: absolute; top: 1rem; left: 1rem; background: var(--red); color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; padding: 0.2rem 0.65rem; z-index: 2; }
-		.feat-stamp.blue { background: var(--ink); }
-		.feat-ext-badge { position: absolute; bottom: 1rem; right: 1rem; background: rgba(10,10,10,0.88); color: #c6d4df; font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.6rem; display: flex; align-items: center; gap: 0.4rem; text-decoration: none; transition: background 0.15s; z-index: 2; }
-		.feat-ext-badge:hover { background: var(--red); color: #fff; }
-		.feat-ext-badge::before { content: ''; display: inline-block; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-		.feat-ext-badge.steam::before { background: #c6d4df; }
-		.feat-ext-badge.fab-badge::before { background: var(--gold); }
-		.feat-content { padding: 2rem 2.5rem; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
-		.feat-kicker { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 0.75rem; }
-		.feat-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.75rem); line-height: 1; letter-spacing: 0.04em; margin-bottom: 1rem; }
-		.feat-desc { font-size: 0.85rem; line-height: 1.8; color: rgba(232,228,220,0.55); flex: 1; margin-bottom: 1.25rem; }
-		.feat-skills { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.25rem; }
-		.fsk { font-family: 'Space Mono', monospace; font-size: 0.55rem; padding: 0.25rem 0.55rem; border: 1px solid var(--rule-strong); letter-spacing: 0.05em; text-transform: uppercase; color: rgba(232,228,220,0.45); }
-		.fsk.gold { border-color: rgba(196,154,42,0.4); color: var(--gold); }
-		.fsk.mp { background: var(--red); color: #fff; border-color: var(--red); }
-
-		/* FAB BANNER */
-		.fab-banner { border-bottom: 2px solid var(--ink); background: var(--gold-bg); display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 2rem; padding: 2rem 3rem; position: relative; overflow: hidden; }
-		.fab-banner::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--gold); }
-		.fab-icon-col { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-		.fab-icon { width: 72px; height: 72px; background: var(--ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
-		.fab-icon img { width: 100%; height: 100%; object-fit: cover; }
-		.fab-pill { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.2rem 0.6rem; background: var(--gold); color: #fff; white-space: nowrap; }
-		.fab-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
-		.fab-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.05em; line-height: 1; margin-bottom: 0.6rem; }
-		.fab-desc { font-size: 0.85rem; line-height: 1.75; color: rgba(232,228,220,0.55); max-width: 600px; }
-		.fab-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem; }
-		.fab-tag { font-family: 'Space Mono', monospace; font-size: 0.55rem; padding: 0.22rem 0.55rem; border: 1px solid rgba(196,154,42,0.35); color: var(--gold); letter-spacing: 0.05em; text-transform: uppercase; }
-		.fab-tag.mp { background: var(--red); color: #fff; border-color: var(--red); }
-		.fab-cta { display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-end; flex-shrink: 0; }
-		.fab-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1; color: var(--gold); text-align: right; }
-		.fab-stat-label { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,228,220,0.35); text-align: right; }
-
-		/* PROJECT GRID */
-		.proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 2px solid var(--ink); }
-		.proj-card { border-right: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); text-decoration: none; color: var(--ink); display: flex; flex-direction: column; position: relative; overflow: hidden; transition: background 0.15s; }
-		.proj-card:nth-child(3n) { border-right: none; }
-		.proj-card:hover { background: var(--tan); }
-		.proj-card:hover .proj-img { filter: grayscale(0%) contrast(1.05); }
-		.proj-card:hover .proj-arrow { opacity: 1; transform: translate(0,0); }
-		.proj-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; filter: grayscale(60%) contrast(1); transition: filter 0.3s; border-bottom: 1px solid var(--rule-strong); }
-		.proj-body { padding: 1.25rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
-		.proj-type { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
-		.proj-type.gold-type { color: var(--gold); }
-		.proj-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 0.06em; line-height: 1.1; margin-bottom: 0.75rem; }
-		.proj-desc { font-size: 0.8rem; line-height: 1.75; color: rgba(232,228,220,0.5); flex: 1; }
-		.proj-footer { border-top: 1px solid var(--rule); padding: 0.75rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
-		.proj-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
-		.ptag { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.2rem 0.5rem; border: 1px solid var(--rule-strong); color: rgba(232,228,220,0.4); }
-		.ptag.gold { border-color: rgba(196,154,42,0.4); color: var(--gold); }
-		.proj-arrow { font-size: 0.9rem; color: var(--red); opacity: 0; transform: translate(-4px, 4px); transition: opacity 0.2s, transform 0.2s; }
-		.proj-arrow.gold-arrow { color: var(--gold); }
-		.proj-card.fab-card { background: var(--gold-bg); border: 1px solid rgba(196,154,42,0.25); }
-		.proj-card.fab-card:nth-child(3n) { border-right: none; }
-		.proj-card.fab-card:hover { background: #221c06; }
-		.fab-card-header { position: relative; border-bottom: 1px solid rgba(196,154,42,0.3); overflow: hidden; }
-		.fab-card-header img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; filter: grayscale(20%) contrast(1.05); transition: filter 0.3s; }
-		.proj-card.fab-card:hover .fab-card-header img { filter: grayscale(0%) contrast(1.05); }
-		.fab-card-overlay-badge { position: absolute; top: 0.75rem; left: 0.75rem; background: var(--gold); color: #fff; font-family: 'Space Mono', monospace; font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.6rem; }
-		.fab-badge-text { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
-		.proj-placeholder { background: var(--tan); cursor: default; }
-		.wip-card { background: #0d0d14; border-color: rgba(124,92,252,0.25) !important; }
-		.wip-card:hover { background: #11111e !important; }
-		.wip-img-wrap { width: 100%; aspect-ratio: 16/9; background: #0a0a12; border-bottom: 1px solid rgba(124,92,252,0.2); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-		.wip-card:hover .wip-img-wrap img { filter: saturate(1) brightness(1) !important; }
-		.wip-label { position: absolute; top: 0.75rem; right: 0.75rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.2em; color: rgba(124,92,252,0.7); border: 1px solid rgba(124,92,252,0.3); padding: 0.15rem 0.6rem; }
-		.wip-type { color: rgba(124,92,252,0.8) !important; }
-
-		/* ABOUT — with photo */
-		.about-wrap { border-bottom: 2px solid var(--ink); display: grid; grid-template-columns: 3fr 2fr 2fr; }
-		.about-left { border-right: 2px solid var(--ink); padding: 4rem 3rem; }
-		.about-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 4vw, 3.5rem); line-height: 1; letter-spacing: 0.04em; margin-bottom: 2rem; }
-		.about-headline em { font-style: normal; color: transparent; -webkit-text-stroke: 2px var(--ink); }
-		.about-body { font-size: 0.92rem; line-height: 1.9; color: rgba(232,228,220,0.55); max-width: 460px; margin-bottom: 1rem; }
-
-		/* Photo column */
-		.about-photo-col { border-right: 2px solid var(--ink); position: relative; overflow: hidden; min-height: 400px; }
-		.about-photo-col img { width: 100%; height: 100%; min-height: 400px; object-fit: cover; object-position: top center; display: block; filter: grayscale(15%) contrast(1.05); position: absolute; top: 0; left: 0; }
-		.photo-label { position: absolute; bottom: 0; left: 0; right: 0; background: var(--ink); color: var(--bg); font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1rem; display: flex; justify-content: space-between; }
-
-		/* HOBBIES SECTION */
-		.hobbies-section { border-bottom: 2px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; }
-		.hobby-big-card { display: flex; flex-direction: column; border-right: 2px solid var(--ink); }
-		.hobby-big-card:last-child { border-right: none; }
-		.hobby-big-img { position: relative; height: 260px; overflow: hidden; border-bottom: 2px solid var(--ink); }
-		.hobby-big-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; filter: grayscale(30%) contrast(1.1); transition: filter 0.4s; }
-		.hobby-big-card:hover .hobby-big-img img { filter: grayscale(0%) contrast(1); }
-		.hobby-big-stamp { position: absolute; top: 1rem; left: 1rem; background: var(--ink); color: var(--bg); font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.15em; padding: 0.2rem 0.65rem; }
-		.hobby-big-content { padding: 2.5rem 3rem; flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
-		.hobby-big-kicker { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); }
-		.hobby-big-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.04em; line-height: 1; }
-		.hobby-big-desc { font-size: 0.88rem; line-height: 1.85; color: rgba(232,228,220,0.55); flex: 1; }
-		.hobby-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.25rem; }
-		.about-right { padding: 3rem 2.5rem; }
-		.skills-header { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.1em; margin-bottom: 2rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule-strong); }
-		.skill-row { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 1.25rem; }
-		.skill-meta { display: flex; justify-content: space-between; align-items: baseline; }
-		.skill-name { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; text-transform: uppercase; }
-		.skill-pct { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--red); letter-spacing: 0.05em; }
-		.bar-outer { height: 3px; background: var(--rule-strong); }
-		.bar-inner { height: 100%; background: var(--ink); position: relative; }
-		.bar-inner::after { content: ''; position: absolute; right: 0; top: -2px; width: 7px; height: 7px; background: var(--red); }
-
-		/* CONTACT */
-		.contact-wrap { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--ink); }
-		.contact-left { padding: 5rem 3rem; background: #0a0a0a; color: var(--bg); border-right: 2px solid var(--ink); }
-		.contact-big { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 9vw, 7.5rem); line-height: 0.88; letter-spacing: 0.03em; margin-bottom: 2rem; color: #ffffff; }
-		.contact-big .red { color: var(--red); }
-		.contact-sub { font-family: 'Space Mono', monospace; font-size: 0.7rem; line-height: 1.9; letter-spacing: 0.05em; color: rgba(232,228,220,0.65); margin-bottom: 2.5rem; }
-		.email-link { font-family: 'Space Mono', monospace; font-size: 0.78rem; color: #ffffff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.35); padding-bottom: 2px; letter-spacing: 0.04em; transition: color 0.15s, border-color 0.15s; }
-		.email-link:hover { color: var(--red); border-color: var(--red); }
-		.contact-right { padding: 4rem 3rem; display: flex; flex-direction: column; justify-content: space-between; }
-		.contact-links-header { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(232,228,220,0.35); margin-bottom: 1.5rem; }
-		.clink { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; border-bottom: 1px solid var(--rule-strong); text-decoration: none; color: var(--ink); transition: padding-left 0.2s, color 0.2s; }
-		.clink:hover { padding-left: 0.75rem; color: var(--red); }
-		.clink-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.1em; }
-		.clink-handle { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.06em; color: rgba(232,228,220,0.35); }
-		.footer-base { border-top: 2px solid var(--ink); display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--ink); color: var(--bg); }
-		.footer-copy, .footer-loc { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; opacity: 0.4; }
-
-		@media (max-width: 960px) {
-			#hero, .featured-pair, .about-wrap, .contact-wrap { grid-template-columns: 1fr; }
-			.hero-left, .feat-card, .about-left, .about-photo-col, .contact-left { border-right: none; border-bottom: 2px solid var(--ink); }
-			.feat-card:last-child { border-bottom: none; }
-			.hero-stat-row { grid-template-columns: repeat(2, 1fr); }
-			.proj-grid { grid-template-columns: 1fr 1fr; }
-			.proj-card:nth-child(3n) { border-right: 1px solid var(--rule-strong); }
-			.proj-card:nth-child(2n) { border-right: none; }
-			.fab-banner { grid-template-columns: 1fr; }
-			.fab-cta { align-items: flex-start; flex-direction: row; align-items: center; }
-			.about-photo-col { min-height: 320px; }
-			.hobbies-section { grid-template-columns: 1fr; }
-			.hobby-big-card { border-right: none; border-bottom: 2px solid var(--ink); }
-			nav .nav-status { display: none; }
-		}
-	</style>
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+	<link rel="stylesheet" href="assets/site.css">
+	<script src="assets/site.js" defer></script>
 </head>
 <body>
 
-<!-- TICKER -->
-<div class="ticker" aria-hidden="true">
-	<span class="ticker-inner">
-		<span>GAMEPLAY PROGRAMMER</span><span class="sep"> // </span>
-		<span>UNREAL ENGINE 5</span><span class="sep"> // </span>
-		<span class="gold">&#9733; FAB MARKETPLACE PUBLISHER</span><span class="sep"> // </span>
-		<span>SONIC INTERACTION SYSTEM</span><span class="sep"> // </span>
-		<span>MULTIPLAYER READY</span><span class="sep"> // </span>
-		<span>POLICE SIMULATOR: PATROL OFFICERS</span><span class="sep"> // </span>
-		<span>AMBULANCE LIFE</span><span class="sep"> // </span>
-		<span>C++ &amp; C#</span><span class="sep"> // </span>
-		<span>6+ YEARS EXPERIENCE</span><span class="sep"> // </span>
-		<span>SAKITHA NAVOD AMARASINGHE</span><span class="sep"> // </span>
-		<span>GAMEPLAY PROGRAMMER</span><span class="sep"> // </span>
-		<span>UNREAL ENGINE 5</span><span class="sep"> // </span>
-		<span class="gold">&#9733; FAB MARKETPLACE PUBLISHER</span><span class="sep"> // </span>
-		<span>SONIC INTERACTION SYSTEM</span><span class="sep"> // </span>
-		<span>MULTIPLAYER READY</span><span class="sep"> // </span>
-		<span>POLICE SIMULATOR: PATROL OFFICERS</span><span class="sep"> // </span>
-		<span>AMBULANCE LIFE</span><span class="sep"> // </span>
-		<span>C++ &amp; C#</span><span class="sep"> // </span>
-		<span>6+ YEARS EXPERIENCE</span><span class="sep"> // </span>
-		<span>SAKITHA NAVOD AMARASINGHE</span><span class="sep"> // </span>
-	</span>
-</div>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<!-- NAV — no logo button -->
-<nav>
-	<ul class="nav-links">
-		<li><a href="#projects">Projects</a></li>
-		<li><a href="#marketplace">Marketplace</a></li>
-		<li><a href="#about">About</a></li>
-		<li><a href="images/sakitha_navod_cv.pdf" download>Download CV</a></li>
-		<li><a href="#contact">Contact</a></li>
-	</ul>
-	<span class="nav-status">Colombo, Sri Lanka &nbsp;·&nbsp; Available for work</span>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-	<div class="hero-left">
-		<div class="hero-issue">
-			<span>PORTFOLIO &mdash; 2026</span>
-			<span>VOL. 01 &nbsp;//&nbsp; GAMEPLAY SYSTEMS</span>
-		</div>
-		<h1 class="hero-name">
-			<div>SAKITHA</div>
-			<div class="outline">NAVOD</div>
-			<div class="red" style="font-size:clamp(1.8rem,4.5vw,3.8rem); letter-spacing:0.08em; line-height:1.2; margin-top:0.2rem;">GAMEPLAY PROGRAMMER</div>
-		</h1>
-		<div class="hero-bottom">
-			<p class="hero-tagline">Crafting the systems that make<br>games feel alive — 6+ years<br>across AAA simulators &amp; action games.</p>
-			<div class="hero-cta-row">
-				<a href="#projects" class="btn-ink">See Work</a>
-				<a href="images/sakitha_navod_cv.pdf" download class="btn-outline">Download CV &darr;</a>
-			</div>
-		</div>
+<header class="site-header">
+	<div class="wrap site-header__inner">
+		<a class="wordmark" href="#top" aria-label="Sakitha Navod Amarasinghe — back to top">
+			Sakitha Navod <span class="wordmark__last">Amarasinghe</span>
+		</a>
+		<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+		<nav class="site-nav" id="site-nav" aria-label="Primary">
+			<ul>
+				<li><a href="#work">Shipped work</a></li>
+				<li><a href="#plugin">Plugin</a></li>
+				<li><a href="#projects">Projects</a></li>
+				<li><a href="#expertise">Expertise</a></li>
+				<li><a href="#experience">Experience</a></li>
+				<li><a href="#contact">Contact</a></li>
+			</ul>
+			<a class="site-nav__cv" href="images/sakitha_navod_cv.pdf" target="_blank" rel="noopener">CV <span class="u-muted">PDF</span></a>
+		</nav>
 	</div>
+</header>
 
-	<div class="hero-right">
-		<!-- 4 stats in one row -->
-		<div class="hero-stat-row">
-			<div class="stat"><span class="stat-num">6+</span><span class="stat-label">Yrs experience</span></div>
-			<div class="stat"><span class="stat-num">SWE</span><span class="stat-label">Software Engineer</span></div>
-			<div class="stat"><span class="stat-num">UE5</span><span class="stat-label">Primary engine</span></div>
-			<div class="stat"><span class="stat-num">C++</span><span class="stat-label">Primary language</span></div>
+<main id="main">
+
+	<!-- ============================================================
+	     HERO
+	     ============================================================ -->
+	<section class="hero" id="top" aria-labelledby="hero-title">
+		<div class="wrap hero__grid">
+			<div class="hero__main">
+				<p class="eyebrow">Gameplay Programmer <span class="eyebrow__sep" aria-hidden="true">/</span> Unreal Engine &amp; C++</p>
+				<h1 class="hero__title" id="hero-title">Sakitha Navod <span class="hero__title-line">Amarasinghe</span></h1>
+				<p class="hero__lead">
+					I build gameplay systems in Unreal Engine with C++. At Aesir Interactive I worked on
+					<a href="#everrail">EverRail</a>, <a href="#ambulance-life">Ambulance Life</a> and <a href="#police-simulator">Police Simulator: Patrol&nbsp;Officers</a>. Before that I programmed the core combat, movement and quest systems for a first&#8209;person action RPG.
+				</p>
+				<p class="hero__sub">
+					My work sits close to the player: abilities, interaction, AI behaviour and movement. I&rsquo;ve been making games professionally since 2018.
+				</p>
+				<div class="hero__actions">
+					<a class="btn btn--primary" href="#work">See shipped work</a>
+					<a class="btn" href="images/sakitha_navod_cv.pdf" download>Download CV <span class="u-muted">(PDF)</span></a>
+				</div>
+				<p class="hero__status">
+					<span>Colombo, Sri Lanka</span>
+					<span class="hero__status-sep" aria-hidden="true">·</span>
+					<span>Available for new roles</span>
+					<span class="hero__status-sep" aria-hidden="true">·</span>
+					<a href="mailto:sakithanavod1994@gmail.com">sakithanavod1994@gmail.com</a>
+				</p>
+			</div>
+
+			<aside class="hero__index" aria-labelledby="index-shipped">
+				<h2 class="index-label" id="index-shipped">Shipped titles</h2>
+				<ol class="index-list">
+					<li>
+						<a class="index-item" href="#everrail">
+							<img class="index-item__thumb" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4134600/b3dc4911abb19e5f9432c7ccba69690b77e0f218/ss_b3dc4911abb19e5f9432c7ccba69690b77e0f218.116x65.jpg" alt="" width="120" height="68">
+							<span class="index-item__text">
+								<span class="index-item__name">EverRail</span>
+								<span class="index-item__meta">Aesir Interactive · UE5 · Early Access 2026</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="index-item" href="#ambulance-life">
+							<img class="index-item__thumb" src="images/web/ambulance-life-thumb.webp" alt="" width="120" height="68">
+							<span class="index-item__text">
+								<span class="index-item__name">Ambulance Life: A&nbsp;Paramedic Simulator</span>
+								<span class="index-item__meta">Aesir Interactive · UE5 · 2025</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="index-item" href="#police-simulator">
+							<img class="index-item__thumb" src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/997010/ss_b3ec094a2238e0757a072cd3bb2dfaaf557066ca.116x65.jpg" alt="" width="120" height="68">
+							<span class="index-item__text">
+								<span class="index-item__name">Police Simulator: Patrol&nbsp;Officers</span>
+								<span class="index-item__meta">Aesir Interactive · UE4</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="index-item" href="#monsters-domain">
+							<img class="index-item__thumb" src="images/web/monsters-domain-thumb.webp" alt="" width="120" height="68">
+							<span class="index-item__text">
+								<span class="index-item__name">Monsters Domain: Prologue</span>
+								<span class="index-item__meta">CreativeForge / G-DEVS · UE5 · 2023</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="index-item" href="#niro">
+							<img class="index-item__thumb" src="images/web/niro-thumb.webp" alt="" width="120" height="68">
+							<span class="index-item__text">
+								<span class="index-item__name">NIRO</span>
+								<span class="index-item__meta">Arimac · UE4 · 2022</span>
+							</span>
+						</a>
+					</li>
+				</ol>
+				<h2 class="index-label">Published</h2>
+				<ol class="index-list">
+					<li>
+						<a class="index-item index-item--plain" href="#plugin">
+							<span class="index-item__text">
+								<span class="index-item__name">Sonic Interaction System</span>
+								<span class="index-item__meta">Unreal Engine plugin on Fab</span>
+							</span>
+						</a>
+					</li>
+				</ol>
+			</aside>
+		</div>
+	</section>
+
+	<!-- ============================================================
+	     01 — SHIPPED WORK
+	     ============================================================ -->
+	<section class="section section--work" id="work" aria-labelledby="work-title">
+		<div class="wrap">
+			<header class="section-head">
+				<p class="section-head__num" aria-hidden="true">01</p>
+				<h2 class="section-head__title" id="work-title">Shipped games</h2>
+				<p class="section-head__intro">Commercial titles I&rsquo;ve programmed on. For each one, what the game is and what I did on it are listed separately.</p>
+			</header>
 		</div>
 
-		<!-- Specialisations — fills all remaining height cleanly -->
-		<div class="hero-spec-block">
-			<div>
-				<div class="spec-section-label">Specialisations</div>
-				<div class="tags-list">
-					<span class="htag red">Gameplay Systems</span>
-					<span class="htag gold">Software Engineer</span>
-					<span class="htag">Game Programming</span>
-					<span class="htag">AI Behaviour</span>
-					<span class="htag">Game Development</span>
-					<span class="htag">Multiplayer / Netcode</span>
-					<span class="htag">Animation Systems</span>
-					<span class="htag">Physics</span>
-					<span class="htag">RL / ML-Agents</span>
-					<span class="htag">Raylib</span>
-					<span class="htag">OpenGL / GLSL</span>
-					<span class="htag">Graphics Programming</span>
-					<span class="htag">BSc. Soft. Eng.</span>
+		<!-- EverRail -->
+		<article class="feature" id="everrail" aria-labelledby="er-title">
+			<div class="wrap feature__grid">
+				<figure class="feature__media">
+					<img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4134600/b3dc4911abb19e5f9432c7ccba69690b77e0f218/ss_b3dc4911abb19e5f9432c7ccba69690b77e0f218.1920x1080.jpg"
+					     srcset="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4134600/b3dc4911abb19e5f9432c7ccba69690b77e0f218/ss_b3dc4911abb19e5f9432c7ccba69690b77e0f218.600x338.jpg 600w, https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4134600/b3dc4911abb19e5f9432c7ccba69690b77e0f218/ss_b3dc4911abb19e5f9432c7ccba69690b77e0f218.1920x1080.jpg 1920w"
+					     sizes="(min-width: 1000px) 58vw, 100vw"
+					     width="1920" height="1080" loading="lazy" decoding="async"
+					     alt="EverRail: a long armoured train ploughs through snow across a frozen plain, mountains on the horizon.">
+					<figcaption>EverRail · Image &copy; Aesir Interactive, via Steam</figcaption>
+				</figure>
+				<div class="feature__body">
+					<p class="feature__kicker">Most recent · Early Access since July 2026</p>
+					<h3 class="feature__title" id="er-title">EverRail</h3>
+
+					<dl class="specs">
+						<div><dt>Engine</dt><dd>Unreal Engine 5</dd></div>
+						<div><dt>Language</dt><dd>C++</dd></div>
+						<div><dt>My role</dt><dd>Unreal Engine Programmer</dd></div>
+						<div><dt>Platforms</dt><dd>PC</dd></div>
+						<div><dt>Developer</dt><dd>Aesir Interactive</dd></div>
+						<div><dt>Publisher</dt><dd>Aesir Interactive</dd></div>
+					</dl>
+
+					<div class="feature__block">
+						<h4 class="feature__label">My work</h4>
+						<ul class="worklist">
+							<li>Glider mechanics</li>
+							<li>Multiplayer compatibility for online co-op</li>
+							<li>Gameplay features built on the Gameplay Ability System (GAS)</li>
+						</ul>
+						<p class="note">Worked on at Aesir Interactive during development, ahead of the Early Access launch in July 2026.</p>
+					</div>
+
+					<div class="feature__block feature__block--game">
+						<h4 class="feature__label">The game</h4>
+						<p>An open-world survival-craft game on a frozen exomoon, played solo or in co-op with up to four players. Your base is a train whose battery only charges while it moves: scavenge, fight and craft to keep it running and grow it to hundreds of wagons.</p>
+					</div>
+
+					<p class="feature__links">
+						<a class="arrow-link" href="https://store.steampowered.com/app/4134600/EverRail/" target="_blank" rel="noopener">Steam page</a>
+					</p>
 				</div>
 			</div>
+		</article>
 
-			<div>
-				<div class="spec-section-label">Engines &amp; Tools</div>
-				<div class="hero-engine-row">
-					<div class="engine-box">
-						<span class="engine-box-title">Unreal Engine 5</span>
-						<span class="engine-box-sub">C++ &nbsp;/&nbsp; Blueprints &nbsp;/&nbsp; Plugins</span>
+		<!-- Ambulance Life -->
+		<article class="feature feature--flip" id="ambulance-life" aria-labelledby="al-title">
+			<div class="wrap feature__grid">
+				<figure class="feature__media">
+					<img src="images/web/ambulance-life-1600.webp"
+					     srcset="images/web/ambulance-life-960.webp 960w, images/web/ambulance-life-1600.webp 1600w"
+					     sizes="(min-width: 1000px) 58vw, 100vw"
+					     width="1600" height="900" loading="lazy" decoding="async"
+					     alt="Ambulance Life: two paramedics treat an injured woman on a city pavement, an ambulance parked behind them.">
+					<figcaption>Ambulance Life: A Paramedic Simulator · Image &copy; Aesir Interactive / Nacon</figcaption>
+				</figure>
+				<div class="feature__body">
+					<p class="feature__kicker">Released February 2025</p>
+					<h3 class="feature__title" id="al-title">Ambulance Life: A&nbsp;Paramedic Simulator</h3>
+
+					<dl class="specs">
+						<div><dt>Engine</dt><dd>Unreal Engine 5</dd></div>
+						<div><dt>Language</dt><dd>C++</dd></div>
+						<div><dt>My role</dt><dd>Unreal Engine Programmer</dd></div>
+						<div><dt>Platforms</dt><dd>PC, PlayStation, Xbox</dd></div>
+						<div><dt>Developer</dt><dd>Aesir Interactive</dd></div>
+						<div><dt>Publisher</dt><dd>Nacon</dd></div>
+					</dl>
+
+					<div class="feature__block">
+						<h4 class="feature__label">My work</h4>
+						<ul class="worklist">
+							<li>Gameplay features built on the Gameplay Ability System (GAS)</li>
+							<li>Gameplay feature content</li>
+							<li>Pathfinding system</li>
+							<li>Callout system</li>
+						</ul>
 					</div>
-					<div class="engine-box">
-						<span class="engine-box-title">Unity</span>
-						<span class="engine-box-sub">C# &nbsp;/&nbsp; ML-Agents &nbsp;/&nbsp; Mobile</span>
+
+					<div class="feature__block feature__block--game">
+						<h4 class="feature__label">The game</h4>
+						<p>A paramedic simulation: take the emergency call, drive to the scene, give first aid on site and get the patient to hospital.</p>
 					</div>
+
+					<p class="feature__links">
+						<a class="arrow-link" href="https://store.steampowered.com/app/1926520/Ambulance_Life_A_Paramedic_Simulator/" target="_blank" rel="noopener">Steam page</a>
+						<a class="arrow-link" href="https://www.youtube.com/watch?v=HSX4qBDTKlc" target="_blank" rel="noopener">Gameplay trailer</a>
+					</p>
 				</div>
 			</div>
+		</article>
 
-			<div>
-				<div class="spec-section-label">Experience</div>
-				<div class="exp-list">
-					<div class="exp-item">
-						<div class="exp-dot red-dot"></div>
-						<div class="exp-body">
-							<div class="exp-role">Unreal Engine Programmer</div>
-							<div class="exp-company">Aesir Interactive GmbH</div>
-							<div class="exp-meta">Oct 2023 — Apr 2026 &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Remote</div>
-						</div>
+		<!-- Police Simulator -->
+		<article class="feature" id="police-simulator" aria-labelledby="ps-title">
+			<div class="wrap feature__grid">
+				<figure class="feature__media">
+					<img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/997010/ss_b3ec094a2238e0757a072cd3bb2dfaaf557066ca.1920x1080.jpg"
+					     srcset="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/997010/ss_b3ec094a2238e0757a072cd3bb2dfaaf557066ca.600x338.jpg 600w, https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/997010/ss_b3ec094a2238e0757a072cd3bb2dfaaf557066ca.1920x1080.jpg 1920w"
+					     sizes="(min-width: 1000px) 58vw, 100vw"
+					     width="1920" height="1080" loading="lazy" decoding="async"
+					     alt="Police Simulator: Patrol Officers at night: patrol cars and an ambulance with lights on at an incident on a city street.">
+					<figcaption>Police Simulator: Patrol Officers · Image &copy; Aesir Interactive / astragon Entertainment, via Steam</figcaption>
+				</figure>
+				<div class="feature__body">
+					<p class="feature__kicker">Released November 2022</p>
+					<h3 class="feature__title" id="ps-title">Police Simulator: Patrol&nbsp;Officers</h3>
+
+					<dl class="specs">
+						<div><dt>Engine</dt><dd>Unreal Engine 4</dd></div>
+						<div><dt>Language</dt><dd>C++</dd></div>
+						<div><dt>My role</dt><dd>Unreal Engine Programmer</dd></div>
+						<div><dt>Platforms</dt><dd>PC, PlayStation, Xbox</dd></div>
+						<div><dt>Developer</dt><dd>Aesir Interactive</dd></div>
+						<div><dt>Publisher</dt><dd>astragon Entertainment</dd></div>
+					</dl>
+
+					<div class="feature__block">
+						<h4 class="feature__label">My work</h4>
+						<p>I worked on this title at Aesir Interactive. My role there covered gameplay systems, player mechanics, interaction systems and AI behaviour in C++, and keeping builds stable through the CI/CD pipeline.</p>
+						<p class="note">These responsibilities describe my Aesir role across its titles.</p>
 					</div>
-					<div class="exp-item">
-						<div class="exp-dot"></div>
-						<div class="exp-body">
-							<div class="exp-role">Gameplay Programmer</div>
-							<div class="exp-company">CreativeForge Games</div>
-							<div class="exp-meta">Jun 2022 — Oct 2023 &nbsp;·&nbsp; Contract</div>
-						</div>
+
+					<div class="feature__block feature__block--game">
+						<h4 class="feature__label">The game</h4>
+						<p>An open-world police simulation set in the fictional US city of Brighton: patrols, traffic duty, investigations and emergency calls, played solo or in online co-op.</p>
 					</div>
-					<div class="exp-item">
-						<div class="exp-dot"></div>
-						<div class="exp-body">
-							<div class="exp-role">Software Engineer</div>
-							<div class="exp-company">Arimac Digital</div>
-							<div class="exp-meta">Feb 2019 — May 2022 &nbsp;·&nbsp; Full-time</div>
-						</div>
-					</div>
-					<div class="exp-item">
-						<div class="exp-dot"></div>
-						<div class="exp-body">
-							<div class="exp-role">Game Developer</div>
-							<div class="exp-company">Arimac Digital</div>
-							<div class="exp-meta">Sep 2018 — Mar 2019 &nbsp;·&nbsp; Internship</div>
-						</div>
-					</div>
+
+					<p class="feature__links">
+						<a class="arrow-link" href="https://store.steampowered.com/app/997010/Police_Simulator_Patrol_Officers/" target="_blank" rel="noopener">Steam page</a>
+					</p>
 				</div>
 			</div>
+		</article>
 
-			<div>
-				<div class="spec-section-label">Education</div>
-				<div class="tags-list">
-					<span class="htag">BSc. Software Engineering</span>
+		<!-- Also shipped -->
+		<div class="wrap">
+			<h3 class="subhead">Also shipped</h3>
+			<div class="shipped-pair">
+				<article class="shipped" id="monsters-domain" aria-labelledby="md-title">
+					<figure class="shipped__media">
+						<img src="images/web/monsters-domain-1280.webp"
+						     srcset="images/web/monsters-domain-720.webp 720w, images/web/monsters-domain-1280.webp 1280w"
+						     sizes="(min-width: 860px) 45vw, 100vw"
+						     width="1280" height="720" loading="lazy" decoding="async"
+						     alt="Monsters Domain: first-person combat against a goblin, a ghoul and armoured skeletons in a dark forest.">
+					</figure>
+					<p class="feature__kicker">CreativeForge Games (contract) for G-DEVS · 2023</p>
+					<h4 class="shipped__title" id="md-title">Monsters Domain: Prologue</h4>
+					<p class="shipped__aka">Developed as <i>Monster&rsquo;s Layer</i> · Unreal Engine 5 · C++ · PC</p>
+					<p class="shipped__game">A first-person action RPG played from the monsters&rsquo; side: defend the lair, kill invading heroes, loot them and build up your forces.</p>
+					<h5 class="feature__label">My work <span class="u-muted">— Gameplay Programmer</span></h5>
+					<ul class="worklist worklist--compact">
+						<li>First-person combat system</li>
+						<li>Locomotion system</li>
+						<li>Inventory management system</li>
+						<li>Quest system</li>
+						<li>Top-down mechanics</li>
+						<li>Guiding and reviewing the work of other programmers</li>
+					</ul>
+					<p class="feature__links">
+						<a class="arrow-link" href="https://store.steampowered.com/app/2003060/Monsters_Domain_Prologue/" target="_blank" rel="noopener">Steam page</a>
+						<a class="arrow-link" href="https://www.youtube.com/watch?v=bYVvkrzBnR4" target="_blank" rel="noopener">Gameplay demo</a>
+					</p>
+				</article>
+
+				<article class="shipped" id="niro" aria-labelledby="niro-title">
+					<figure class="shipped__media">
+						<img src="images/web/niro-1280.webp"
+						     srcset="images/web/niro-720.webp 720w, images/web/niro-1280.webp 1280w"
+						     sizes="(min-width: 860px) 45vw, 100vw"
+						     width="1280" height="720" loading="lazy" decoding="async"
+						     alt="NIRO: a soldier fires a rifle near a jungle outpost at sunset.">
+					</figure>
+					<p class="feature__kicker">Arimac · 2022</p>
+					<h4 class="shipped__title" id="niro-title">NIRO</h4>
+					<p class="shipped__aka">Unreal Engine 4 · PC</p>
+					<p class="shipped__game">A single-player stealth action game set in the jungles of Asia: track down targets and sabotage heavily guarded military bases.</p>
+					<h5 class="feature__label">My work <span class="u-muted">— Gameplay Programmer</span></h5>
+					<ul class="worklist worklist--compact">
+						<li>Shooting mechanics</li>
+						<li>User interface integration</li>
+						<li>Mission system</li>
+						<li>Steam integration</li>
+					</ul>
+					<p class="feature__links">
+						<a class="arrow-link" href="https://store.steampowered.com/app/1448610/NIRO/" target="_blank" rel="noopener">Steam page</a>
+					</p>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+	     02 — PUBLISHED PLUGIN
+	     ============================================================ -->
+	<section class="section section--plugin" id="plugin" aria-labelledby="plugin-title">
+		<div class="wrap">
+			<header class="section-head section-head--inverse">
+				<p class="section-head__num" aria-hidden="true">02</p>
+				<h2 class="section-head__title">Published plugin</h2>
+				<p class="section-head__intro">Independent work: designed, built and published by me on Fab.</p>
+			</header>
+
+			<div class="plugin__grid">
+				<div class="plugin__intro">
+					<p class="plugin__meta">Unreal Engine plugin · C++ · Blueprint API · Replicated</p>
+					<h3 class="plugin__title" id="plugin-title">Sonic Interaction System</h3>
+					<p class="plugin__lead">An interaction framework for Unreal Engine, from simple pickups up to multiplayer-safe gameplay systems. It decides what the player is focusing on, how an interaction is triggered, and keeps that state consistent across the network.</p>
+					<div class="plugin__actions">
+						<a class="btn btn--light" href="https://www.fab.com/listings/bc6b11d0-25d7-4d62-bd16-0e4e02577c2d" target="_blank" rel="noopener">View on Fab</a>
+						<a class="arrow-link arrow-link--light" href="https://youtu.be/sP-qpLGWLHw" target="_blank" rel="noopener">Showcase video</a>
+						<a class="arrow-link arrow-link--light" href="https://youtu.be/_2mD7HlBLkk" target="_blank" rel="noopener">Getting started</a>
+					</div>
 				</div>
+				<figure class="plugin__media">
+					<img src="images/web/sonic-interaction-1280.webp"
+					     srcset="images/web/sonic-interaction-720.webp 720w, images/web/sonic-interaction-1280.webp 1280w"
+					     sizes="(min-width: 1000px) 50vw, 100vw"
+					     width="1280" height="720" loading="lazy" decoding="async"
+					     alt="Sonic Interaction System debug view: a character in a test level with lines drawn to several interaction points and the focus ranges around them.">
+					<figcaption>The in-game debug view, showing focus ranges and active candidates</figcaption>
+				</figure>
 			</div>
 
-		</div>
-	</div>
-</section>
-
-<!-- FEATURED PROJECTS -->
-<div class="sec-header">
-	<h2>Featured Projects</h2>
-	<span class="sec-num">01 / SHIPPED TITLES</span>
-</div>
-<div class="featured-pair">
-	<div class="feat-card">
-		<div class="feat-img-wrap">
-			<img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/997010/header.jpg" alt="Police Simulator: Patrol Officers"/>
-			<div class="feat-stamp blue">On Steam</div>
-			<a href="https://store.steampowered.com/app/997010/Police_Simulator_Patrol_Officers/" class="feat-ext-badge steam" target="_blank" rel="noopener">View on Steam &rarr;</a>
-		</div>
-		<div class="feat-content">
-			<div>
-				<div class="feat-kicker">PC &nbsp;·&nbsp; Xbox &nbsp;·&nbsp; PlayStation &nbsp;//&nbsp; Unreal Engine 4 &nbsp;//&nbsp; Multiplayer &nbsp;//&nbsp;C++</div>
-				<h2 class="feat-title">Police Simulator:<br>Patrol Officers</h2>
-				<p class="feat-desc">Experience the daily life of a police officer patrolling the streets of Brighton. Direct traffic, investigate crimes, and enforce the law in this large-scale open-world simulation built in Unreal Engine 4.</p>
-				<div class="feat-skills">
-					<span class="fsk">Unreal Engine 4</span><span class="fsk">C++</span><span class="fsk">Game Programming</span><span class="fsk">PC</span><span class="fsk">Xbox</span><span class="fsk">PlayStation</span>
+			<dl class="plugin__features">
+				<div>
+					<dt>Attention-driven focus</dt>
+					<dd>Chooses the interaction target from view direction, distance and visibility, and drives the on-screen indicators that guide the player toward it.</dd>
 				</div>
-			</div>
-			<a href="https://store.steampowered.com/app/997010/Police_Simulator_Patrol_Officers/" class="btn-ink" style="align-self:flex-start;" target="_blank" rel="noopener">View on Steam &rarr;</a>
-		</div>
-	</div>
-	<div class="feat-card">
-		<div class="feat-img-wrap">
-			<img src="images/amb.jpg" alt="Ambulance Life: A Paramedic Simulator"/>
-			<div class="feat-stamp">Latest Release</div>
-			<a href="https://store.steampowered.com/agecheck/app/1926520/" class="feat-ext-badge steam" target="_blank" rel="noopener">View on Steam &rarr;</a>
-		</div>
-		<div class="feat-content">
-			<div>
-				<div class="feat-kicker">PC &nbsp;·&nbsp; Xbox &nbsp;·&nbsp; PlayStation &nbsp;//&nbsp; Unreal Engine 5 &nbsp;//&nbsp; C++</div>
-				<h2 class="feat-title">Ambulance Life:<br>A Paramedic Simulator</h2>
-				<p class="feat-desc">Race to accident scenes with sirens wailing, apply first aid under pressure, and transport the critically injured to hospital. A high-fidelity simulation where every second costs a life.</p>
-				<div class="feat-skills">
-					<span class="fsk">Unreal Engine 5</span><span class="fsk">C++</span><span class="fsk">Game Programming</span><span class="fsk">PC</span><span class="fsk">Xbox</span><span class="fsk">PlayStation</span>
+				<div>
+					<dt>Trigger model</dt>
+					<dd>Press, release, hold, repeat-while-held and tap, plus custom triggers. Triggers can be combined on a single interaction.</dd>
 				</div>
+				<div>
+					<dt>Replication</dt>
+					<dd>Interactions are replicated, with interaction locking so two players can&rsquo;t act on the same object at once.</dd>
+				</div>
+				<div>
+					<dt>Debug visualisation</dt>
+					<dd>Draws focus ranges, dot-product checks, gates and active candidates in real time, so tuning happens in the level instead of in guesswork.</dd>
+				</div>
+				<div>
+					<dt>Camera-agnostic</dt>
+					<dd>Works with first-person, third-person, top-down and fixed cameras without changes to the core logic.</dd>
+				</div>
+				<div>
+					<dt>Modular</dt>
+					<dd>Scales from a single interactable to system-level gameplay, with an API exposed to Blueprints for designers.</dd>
+				</div>
+			</dl>
+		</div>
+	</section>
+
+	<!-- ============================================================
+	     03 — TECHNICAL PROJECTS
+	     ============================================================ -->
+	<section class="section" id="projects" aria-labelledby="projects-title">
+		<div class="wrap">
+			<header class="section-head">
+				<p class="section-head__num" aria-hidden="true">03</p>
+				<h2 class="section-head__title" id="projects-title">Mechanics &amp; prototypes</h2>
+				<p class="section-head__intro">Personal projects where I take a mechanic from a game I admire and rebuild it from scratch to understand how it works. Each one links to a video of it running.</p>
+			</header>
+
+			<div class="projects">
+				<article class="project project--wide">
+					<a class="project__media" href="https://www.youtube.com/watch?v=Nffl9O8gPDE" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+						<img src="images/web/grapple-glide-960.webp" srcset="images/web/grapple-glide-640.webp 640w, images/web/grapple-glide-960.webp 960w" sizes="(min-width: 1000px) 50vw, 100vw" width="960" height="540" loading="lazy" decoding="async" alt="">
+					</a>
+					<div class="project__body">
+						<p class="project__meta"><span>Traversal</span> UE5 · C++ · <span class="tag-wip">In progress</span></p>
+						<h3 class="project__title"><a href="https://www.youtube.com/watch?v=Nffl9O8gPDE" target="_blank" rel="noopener">Grapple &amp; glide <span class="u-muted">— Batman: Arkham style</span></a></h3>
+						<p>The grapple-glide traversal from the Arkham games: the momentum arc off the grapple, glide physics, and chaining a dive-bomb straight into the next grapple.</p>
+					</div>
+				</article>
+
+				<article class="project project--wide">
+					<a class="project__media" href="https://www.youtube.com/watch?v=VHyG4EhyLEM" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+						<img src="images/web/sekiro-grapple-916.webp" srcset="images/web/sekiro-grapple-640.webp 640w, images/web/sekiro-grapple-916.webp 916w" sizes="(min-width: 1000px) 50vw, 100vw" width="916" height="515" loading="lazy" decoding="async" alt="">
+					</a>
+					<div class="project__body">
+						<p class="project__meta"><span>Traversal</span> UE4 · C++</p>
+						<h3 class="project__title"><a href="https://www.youtube.com/watch?v=VHyG4EhyLEM" target="_blank" rel="noopener">Grappling hook <span class="u-muted">— Sekiro: Shadows Die Twice</span></a></h3>
+						<p>Off-screen indicators for grapple points, distance and angle validation against the player, arc-path travel between points, collision handling and animation mapping.</p>
+					</div>
+				</article>
+
+				<article class="project">
+					<a class="project__media" href="https://www.youtube.com/watch?v=S7kljnY-ZXQ" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+						<img src="images/web/shadow-strike-720.webp" srcset="images/web/shadow-strike-720.webp 720w, images/web/shadow-strike-1280.webp 1280w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1280" height="720" loading="lazy" decoding="async" alt="">
+					</a>
+					<div class="project__body">
+						<p class="project__meta"><span>Combat</span> Unreal Engine · C++</p>
+						<h3 class="project__title"><a href="https://www.youtube.com/watch?v=S7kljnY-ZXQ" target="_blank" rel="noopener">Shadow Strike <span class="u-muted">— Shadow of Mordor</span></a></h3>
+						<p>The chainable teleport-kill ability, broken down and rebuilt: multi-target chaining across enemies in different places, with camera transitions between strikes.</p>
+					</div>
+				</article>
+
+				<article class="project">
+					<a class="project__media" href="https://www.youtube.com/watch?v=_CXXC1380V8" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+						<img src="images/web/wall-running-720.webp" srcset="images/web/wall-running-720.webp 720w, images/web/wall-running-1280.webp 1280w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1280" height="720" loading="lazy" decoding="async" alt="">
+					</a>
+					<div class="project__body">
+						<p class="project__meta"><span>Movement</span> UE4 · C++</p>
+						<h3 class="project__title"><a href="https://www.youtube.com/watch?v=_CXXC1380V8" target="_blank" rel="noopener">Wall running <span class="u-muted">— Prince of Persia style</span></a></h3>
+						<p>Horizontal wall running built on angle comparison in 3D, line traces and vector maths.</p>
+					</div>
+				</article>
+
+				<article class="project">
+					<a class="project__media" href="https://youtu.be/_PPYSeKynh8" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+						<img src="images/web/adaptive-ai-720.webp" srcset="images/web/adaptive-ai-720.webp 720w, images/web/adaptive-ai-1280.webp 1280w" sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" width="1280" height="720" loading="lazy" decoding="async" alt="">
+					</a>
+					<div class="project__body">
+						<p class="project__meta"><span>AI</span> Unity · C# · ML-Agents</p>
+						<h3 class="project__title"><a href="https://youtu.be/_PPYSeKynh8" target="_blank" rel="noopener">Adaptive enemy AI <span class="u-muted">— reinforcement learning</span></a></h3>
+						<p>A small game built to test enemy behaviour that adapts to the player&rsquo;s traits, trained with reinforcement learning.</p>
+					</div>
+				</article>
 			</div>
-			<a href="https://store.steampowered.com/agecheck/app/1926520/" class="btn-ink" style="align-self:flex-start;" target="_blank" rel="noopener">View on Steam &rarr;</a>
-		</div>
-	</div>
-</div>
 
-<!-- FAB MARKETPLACE BANNER -->
-<div class="sec-header" id="marketplace">
-	<h2>Fab Marketplace</h2>
-	<span class="sec-num">02 / PUBLISHED ASSET</span>
-</div>
-<div class="fab-banner">
-	<div class="fab-icon-col">
-		<div class="fab-icon">
-			<img src="images/fab.jpg" alt="Sonic Interaction System preview"/>
+			<p class="projects__more">
+				Earlier: <a href="https://youtu.be/DhyttVPqzkA" target="_blank" rel="noopener">Project: Zero Lock</a>, a small first-person sci-fi puzzle game in Unity.
+				More breakdowns on <a href="https://www.youtube.com/channel/UCnXO5pQCNA7NwCBpLpCvmGA" target="_blank" rel="noopener">YouTube</a>.
+			</p>
 		</div>
-		<span class="fab-pill">Published</span>
-	</div>
-	<div>
-		<div class="fab-eyebrow">Epic Games Fab Marketplace &nbsp;//&nbsp; Unreal Engine 5 Plugin</div>
-		<h2 class="fab-title">Sonic Interaction System</h2>
-		<p class="fab-desc">A fully modular, plug-and-play interaction framework for Unreal Engine 5. Designed to drop into any project with minimal setup — built around clean component architecture, Blueprint-exposed APIs, and extensible interaction channels. Fully multiplayer-ready with replicated interaction states out of the box.</p>
-		<div class="fab-tags">
-			<span class="fab-tag">Unreal Engine 5</span>
-			<span class="fab-tag">C++</span>
-			<span class="fab-tag">Modular System</span>
-			<span class="fab-tag">Blueprints</span>
-			<span class="fab-tag">Plugin</span>
-			<span class="fab-tag mp">&#9632; Multiplayer Ready</span>
-			<span class="fab-tag">Game Development</span>
-		</div>
-	</div>
-	<div class="fab-cta">
-		<div>
-			<div class="fab-stat-num">FAB</div>
-			<div class="fab-stat-label">Marketplace</div>
-		</div>
-		<a href="https://www.fab.com/listings/bc6b11d0-25d7-4d62-bd16-0e4e02577c2d" class="btn-gold" target="_blank" rel="noopener">Get on Fab &rarr;</a>
-	</div>
-</div>
+	</section>
 
-<!-- ALL PROJECTS -->
-<div class="sec-header" id="projects">
-	<h2>All Projects</h2>
-	<span class="sec-num">03 / SELECTED WORK</span>
-</div>
-<div class="proj-grid">
-	<!-- Sonic Interaction System card -->
-	<a href="https://www.fab.com/listings/bc6b11d0-25d7-4d62-bd16-0e4e02577c2d" class="proj-card fab-card" target="_blank" rel="noopener">
-		<div class="fab-card-header">
-			<img src="images/fab.jpg" alt="Sonic Interaction System"/>
-			<span class="fab-card-overlay-badge">&#9733; Fab Marketplace</span>
-		</div>
-		<div class="proj-body">
-			<div class="proj-type gold-type">UE5 Plugin &nbsp;//&nbsp; Modular System</div>
-			<h3 class="proj-title">Sonic Interaction System</h3>
-			<p class="proj-desc">Published production-ready modular interaction framework for UE5. Drop in, extend via Blueprints, multiplayer replicated out of the box.</p>
-		</div>
-		<div class="proj-footer" style="border-top:1px solid rgba(196,154,42,0.3);">
-			<div class="proj-tags"><span class="ptag gold">UE5</span><span class="ptag gold">C++</span><span class="ptag gold">Multiplayer</span></div>
-			<span class="proj-arrow gold-arrow">&#x2197;</span>
-		</div>
-	</a>
+	<!-- ============================================================
+	     04 — EXPERTISE
+	     ============================================================ -->
+	<section class="section section--tint" id="expertise" aria-labelledby="expertise-title">
+		<div class="wrap">
+			<header class="section-head">
+				<p class="section-head__num" aria-hidden="true">04</p>
+				<h2 class="section-head__title" id="expertise-title">What I work on</h2>
+				<p class="section-head__intro">The areas I&rsquo;m most experienced in, and where you can see each one in the work above.</p>
+			</header>
 
-	<a href="https://store.steampowered.com/app/2003060/Monsters_Domain_Prologue/" class="proj-card" target="_blank" rel="noopener">
-		<img src="images/md_01.jpg" alt="Monster's Layer" class="proj-img"/>
-		<div class="proj-body">
-			<div class="proj-type">First-Person Action RPG</div>
-			<h3 class="proj-title">Monster's Layer</h3>
-			<p class="proj-desc">A first-person action RPG where you fight, loot, and level up deep in the monsters' domain. Built combat, locomotion, inventory, and quest systems.</p>
-		</div>
-		<div class="proj-footer">
-			<div class="proj-tags"><span class="ptag">Unreal</span><span class="ptag">C++</span><span class="ptag">PC</span></div>
-			<span class="proj-arrow">&#x2197;</span>
-		</div>
-	</a>
-	<a href="https://store.steampowered.com/app/1448610/NIRO/" class="proj-card" target="_blank" rel="noopener">
-		<img src="images/nero_01.jpg" alt="Nero" class="proj-img"/>
-		<div class="proj-body">
-			<div class="proj-type">Stealth Action</div>
-			<h3 class="proj-title">Nero</h3>
-			<p class="proj-desc">Single-player stealth action in the Asian jungles. Infiltrate bases, eliminate targets, survive the shadows.</p>
-		</div>
-		<div class="proj-footer">
-			<div class="proj-tags"><span class="ptag">Unreal</span><span class="ptag">AI</span><span class="ptag">PC</span></div>
-			<span class="proj-arrow">&#x2197;</span>
-		</div>
-	</a>
-	<a href="https://www.youtube.com/watch?v=S7kljnY-ZXQ" class="proj-card" target="_blank" rel="noopener">
-		<img src="images/my_01.png" alt="Shadow Strike" class="proj-img"/>
-		<div class="proj-body">
-			<div class="proj-type">Mechanic — Shadow of Mordor</div>
-			<h3 class="proj-title">Shadow Strike</h3>
-			<p class="proj-desc">Full recreation of the Shadow Strike chain-kill system from Middle Earth: Shadow of Mordor.</p>
-		</div>
-		<div class="proj-footer">
-			<div class="proj-tags"><span class="ptag">Unreal</span><span class="ptag">Systems</span></div>
-			<span class="proj-arrow">&#x2197;</span>
-		</div>
-	</a>
-	<a href="https://www.youtube.com/watch?v=_CXXC1380V8" class="proj-card" target="_blank" rel="noopener">
-		<img src="images/my_02.JPG" alt="Wall Running" class="proj-img"/>
-		<div class="proj-body">
-			<div class="proj-type">Mechanic — Prince of Persia</div>
-			<h3 class="proj-title">Wall Running</h3>
-			<p class="proj-desc">Horizontal wall-running covering 3D angle comparison, line tracing, and vector maths in UE4.</p>
-		</div>
-		<div class="proj-footer">
-			<div class="proj-tags"><span class="ptag">UE4</span><span class="ptag">Physics</span></div>
-			<span class="proj-arrow">&#x2197;</span>
-		</div>
-	</a>
-	<a href="https://www.youtube.com/watch?v=VHyG4EhyLEM" class="proj-card" target="_blank" rel="noopener">
-		<img src="images/my_03.jpg" alt="Sekiro Grapple" class="proj-img"/>
-		<div class="proj-body">
-			<div class="proj-type">Mechanic — Sekiro</div>
-			<h3 class="proj-title">Grappling Hook</h3>
-			<p class="proj-desc">Deep replication of Sekiro's grapple — off-screen indicators, arc travel, collision, and angle validation.</p>
-		</div>
-		<div class="proj-footer">
-			<div class="proj-tags"><span class="ptag">Unreal</span><span class="ptag">Animation</span></div>
-			<span class="proj-arrow">&#x2197;</span>
-		</div>
-	</a>
-	<a href="https://youtu.be/DhyttVPqzkA" class="proj-card" target="_blank" rel="noopener">
-		<img src="images/my_04.jpg" alt="Project Zero Lock" class="proj-img"/>
-		<div class="proj-body">
-			<div class="proj-type">Puzzle / Sci-Fi</div>
-			<h3 class="proj-title">Project: Zero Lock</h3>
-			<p class="proj-desc">Small-scale Sci-Fi puzzle game in Unity. Analyze environments, open doors, race to the finish.</p>
-		</div>
-		<div class="proj-footer">
-			<div class="proj-tags"><span class="ptag">Unity</span><span class="ptag">C#</span></div>
-			<span class="proj-arrow">&#x2197;</span>
-		</div>
-	</a>
-	<a href="https://youtu.be/_PPYSeKynh8" class="proj-card" target="_blank" rel="noopener">
-		<img src="images/my_06.jpg" alt="Dynamic AI RL" class="proj-img"/>
-		<div class="proj-body">
-			<div class="proj-type">AI Research</div>
-			<h3 class="proj-title">Dynamic AI — RL</h3>
-			<p class="proj-desc">Adaptive enemy AI that learns from player behaviour in real-time using reinforcement learning.</p>
-		</div>
-		<div class="proj-footer">
-			<div class="proj-tags"><span class="ptag">RL</span><span class="ptag">ML-Agents</span></div>
-			<span class="proj-arrow">&#x2197;</span>
-		</div>
-	</a>
-	<a href="https://www.youtube.com/watch?v=Nffl9O8gPDE" class="proj-card wip-card" target="_blank" rel="noopener">
-		<div class="wip-img-wrap">
-			<img src="images/glide.png" alt="Batman Arkham Grapple Glide" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0;filter:saturate(0.7) brightness(0.85);transition:filter 0.3s;"/>
-			<div class="wip-label">WIP</div>
-		</div>
-		<div class="proj-body">
-			<div class="proj-type wip-type">Personal Project &nbsp;//&nbsp; In Progress</div>
-			<h3 class="proj-title">Batman Arkham<br>Grapple Glide</h3>
-			<p class="proj-desc">Replicating Batman Arkham's iconic grapple-glide traversal system in UE5 — including the momentum arc, glide physics, and dive-bomb-to-grapple chaining.</p>
-		</div>
-		<div class="proj-footer">
-			<div class="proj-tags"><span class="ptag">UE5</span><span class="ptag">C++</span><span class="ptag">Traversal</span></div>
-			<span class="proj-arrow">&#x2197;</span>
-		</div>
-	</a>
-</div>
+			<dl class="expertise">
+				<div class="expertise__item">
+					<dt>Gameplay systems &amp; abilities</dt>
+					<dd>
+						<p>Gameplay features structured as systems: abilities on Unreal&rsquo;s Gameplay Ability System, quest and mission flow, inventory and callouts.</p>
+						<p class="evidence">EverRail · Ambulance Life · Monsters Domain · NIRO</p>
+					</dd>
+				</div>
+				<div class="expertise__item">
+					<dt>Movement &amp; traversal</dt>
+					<dd>
+						<p>Character locomotion with clean state transitions, and traversal that has to feel right: grappling, wall running and gliding, driven by traces and vector maths.</p>
+						<p class="evidence">EverRail glider · Monsters Domain · grapple, glide and wall-run prototypes</p>
+					</dd>
+				</div>
+				<div class="expertise__item">
+					<dt>Combat</dt>
+					<dd>
+						<p>First-person combat integrated with animation, shooting mechanics, and ability-driven combat such as chained Shadow Strikes.</p>
+						<p class="evidence">Monsters Domain · NIRO · Shadow Strike</p>
+					</dd>
+				</div>
+				<div class="expertise__item">
+					<dt>Interaction</dt>
+					<dd>
+						<p>Player interaction systems that choose the right target, support different trigger types and stay readable for the player.</p>
+						<p class="evidence">Sonic Interaction System · Aesir titles</p>
+					</dd>
+				</div>
+				<div class="expertise__item">
+					<dt>AI &amp; navigation</dt>
+					<dd>
+						<p>NPC behaviour written in C++, pathfinding, and an experiment with enemies that adapt to the player through reinforcement learning.</p>
+						<p class="evidence">Ambulance Life · adaptive AI prototype</p>
+					</dd>
+				</div>
+				<div class="expertise__item">
+					<dt>Multiplayer &amp; replication</dt>
+					<dd>
+						<p>Making gameplay systems work in online co-op, and designing state so it replicates predictably, including interaction locking so players can&rsquo;t act on the same object at once.</p>
+						<p class="evidence">EverRail · Sonic Interaction System</p>
+					</dd>
+				</div>
+				<div class="expertise__item">
+					<dt>Tools &amp; pipeline</dt>
+					<dd>
+						<p>In-game debug visualisation for tuning, Blueprint-facing APIs for designers, and CI/CD work to keep builds stable across branches.</p>
+						<p class="evidence">Sonic Interaction System · Aesir Interactive</p>
+					</dd>
+				</div>
+				<div class="expertise__item">
+					<dt>Team practice</dt>
+					<dd>
+						<p>Agile sprints and reviews in distributed remote teams, working with design, art and QA, and code review and guidance for other programmers.</p>
+						<p class="evidence">Aesir Interactive · CreativeForge Games</p>
+					</dd>
+				</div>
+			</dl>
 
-<!-- ABOUT — 3 columns: text / photo / skills -->
-<div class="sec-header" id="about">
-	<h2>About</h2>
-	<span class="sec-num">04 / THE DEV</span>
-</div>
-<div class="about-wrap">
-	<div class="about-left">
-		<h2 class="about-headline">Making games<br>feel <em>inevitable</em></h2>
-		<p class="about-body">I'm a gameplay programmer with 6+ years building systems that make games feel alive and immersive. I hold a BSc. in Software Engineering and have shipped multiple commercial titles across PC and console platforms, working with both indie and AA studios.</p>
-		<p class="about-body">I'm passionate about keeping up with the latest technology trends in the industry — whether that's new engine features, rendering techniques, or tools that push what's possible in real-time games. Above all, I'm driven to give players the best experience possible.</p>
-		<p class="about-body">Outside of work, I love playing Action RPGs, Horror, and First Person Shooters — genres that constantly push the boundaries of what gameplay systems can feel like.</p>
+			<dl class="toolbox" aria-label="Tools and technologies">
+				<div><dt>Engines</dt><dd>Unreal Engine 5, Unreal Engine 4, Unity</dd></div>
+				<div><dt>Languages</dt><dd>C++, C#, Python, Blueprints</dd></div>
+				<div><dt>Tools</dt><dd>Rider, Visual Studio, VS Code, Perforce, Git</dd></div>
+				<div><dt>Learning</dt><dd>Graphics programming with OpenGL &amp; GLSL; small games in C with raylib</dd></div>
+			</dl>
+		</div>
+	</section>
 
-	</div>
+	<!-- ============================================================
+	     05 — EXPERIENCE
+	     ============================================================ -->
+	<section class="section" id="experience" aria-labelledby="experience-title">
+		<div class="wrap">
+			<header class="section-head">
+				<p class="section-head__num" aria-hidden="true">05</p>
+				<h2 class="section-head__title" id="experience-title">Experience</h2>
+			</header>
 
-	<!-- Photo -->
-	<div class="about-photo-col">
-		<img src="images/me.jpg" alt="Sakitha Navod"/>
-		<div class="photo-label">
-			<span>Sakitha Navod</span>
-			<span>Gameplay Programmer</span>
-		</div>
-	</div>
+			<ol class="timeline">
+				<li class="role">
+					<p class="role__dates"><time datetime="2023-10">Oct 2023</time> – <time datetime="2026-04">Apr 2026</time></p>
+					<div class="role__main">
+						<h3 class="role__title">Unreal Engine Programmer</h3>
+						<p class="role__org">Aesir Interactive GmbH <span class="u-muted">· Munich, Germany · Full-time, remote</span></p>
+						<ul class="role__points">
+							<li>Gameplay systems in Unreal Engine for large-scale simulation titles: player mechanics, interaction systems and AI behaviour in C++.</li>
+							<li>Worked on <a href="#everrail">EverRail</a>, <a href="#ambulance-life">Ambulance Life: A Paramedic Simulator</a> and <a href="#police-simulator">Police Simulator: Patrol Officers</a>.</li>
+							<li>Contributed to the CI/CD pipeline that kept builds stable and tested across development branches.</li>
+							<li>Agile sprints and reviews with design, art and QA in a distributed team.</li>
+						</ul>
+					</div>
+				</li>
+				<li class="role">
+					<p class="role__dates"><time datetime="2022-06">Jun 2022</time> – <time datetime="2023-10">Oct 2023</time></p>
+					<div class="role__main">
+						<h3 class="role__title">Gameplay Programmer</h3>
+						<p class="role__org">CreativeForge Games <span class="u-muted">· Contract, for G-DEVS</span></p>
+						<ul class="role__points">
+							<li>Programmed the core gameplay systems of <a href="#monsters-domain">Monster&rsquo;s Layer</a> (released as Monsters Domain: Prologue): combat, locomotion, inventory and quests.</li>
+							<li>Guided other programmers on the team, reviewing code and aligning implementations.</li>
+						</ul>
+					</div>
+				</li>
+				<li class="role">
+					<p class="role__dates"><time datetime="2019-02">Feb 2019</time> – <time datetime="2022-05">May 2022</time></p>
+					<div class="role__main">
+						<h3 class="role__title">Software Engineer</h3>
+						<p class="role__org">Arimac Digital <span class="u-muted">· Colombo, Sri Lanka · Full-time</span></p>
+						<ul class="role__points">
+							<li>Gameplay programming on <a href="#niro">NIRO</a>, a stealth action game shipped on Steam.</li>
+							<li>Game and interactive projects for mobile and PC in Unity (C#), including AR/VR and browser games.</li>
+							<li>Led development on several internal prototypes.</li>
+						</ul>
+					</div>
+				</li>
+				<li class="role">
+					<p class="role__dates"><time datetime="2018-09">Sep 2018</time> – <time datetime="2019-03">Mar 2019</time></p>
+					<div class="role__main">
+						<h3 class="role__title">Game Developer <span class="u-muted">— Internship</span></h3>
+						<p class="role__org">Arimac Digital <span class="u-muted">· Sri Lanka</span></p>
+						<ul class="role__points">
+							<li>Gameplay features and prototypes in Unity and C#.</li>
+						</ul>
+					</div>
+				</li>
+			</ol>
 
-	<div class="about-right">
-		<div class="skills-header">Skills</div>
-		<div class="skill-row">
-			<div class="skill-meta"><span class="skill-name">Unreal Engine 5</span><span class="skill-pct">92%</span></div>
-			<div class="bar-outer"><div class="bar-inner" style="width:92%"></div></div>
-		</div>
-		<div class="skill-row">
-			<div class="skill-meta"><span class="skill-name">C++</span><span class="skill-pct">90%</span></div>
-			<div class="bar-outer"><div class="bar-inner" style="width:90%"></div></div>
-		</div>
-		<div class="skill-row">
-			<div class="skill-meta"><span class="skill-name">Game Programming</span><span class="skill-pct">90%</span></div>
-			<div class="bar-outer"><div class="bar-inner" style="width:90%"></div></div>
-		</div>
-		<div class="skill-row">
-			<div class="skill-meta"><span class="skill-name">Game Development</span><span class="skill-pct">88%</span></div>
-			<div class="bar-outer"><div class="bar-inner" style="width:88%"></div></div>
-		</div>
-		<div class="skill-row">
-			<div class="skill-meta"><span class="skill-name">Unreal Engine (General)</span><span class="skill-pct">92%</span></div>
-			<div class="bar-outer"><div class="bar-inner" style="width:92%"></div></div>
-		</div>
-		<div class="skill-row">
-			<div class="skill-meta"><span class="skill-name">Unity (C#)</span><span class="skill-pct">82%</span></div>
-			<div class="bar-outer"><div class="bar-inner" style="width:82%"></div></div>
-		</div>
-		<div class="skill-row">
-			<div class="skill-meta"><span class="skill-name">AI &amp; NPC Behaviour</span><span class="skill-pct">80%</span></div>
-			<div class="bar-outer"><div class="bar-inner" style="width:80%"></div></div>
-		</div>
-	</div>
-</div>
-
-<!-- CURRENTLY LEARNING -->
-<div class="sec-header">
-	<h2>Currently Learning</h2>
-	<span class="sec-num">05 / SIDE INTERESTS</span>
-</div>
-<div class="hobbies-section">
-	<div class="hobby-big-card">
-		<div class="hobby-big-img">
-			<img src="images/raylib.png" alt="Raylib game framework"/>
-			<div class="hobby-big-stamp">Framework</div>
-		</div>
-		<div class="hobby-big-content">
-			<div class="hobby-big-kicker">Game Frameworks &nbsp;//&nbsp; C &nbsp;//&nbsp; Low-level</div>
-			<h3 class="hobby-big-title">Building with Raylib</h3>
-			<p class="hobby-big-desc">Stripping back the engine and building games from pure code. Learning the fundamentals that sit beneath every game engine — input, windowing, audio, 2D/3D rendering — using the Raylib framework. No abstractions, just the craft.</p>
-			<div class="hobby-tags">
-				<span class="htag">C Language</span>
-				<span class="htag">Raylib</span>
-				<span class="htag">Game Architecture</span>
-			</div>
-		</div>
-	</div>
-	<div class="hobby-big-card">
-		<div class="hobby-big-img">
-			<img src="images/gl.png" alt="OpenGL graphics programming"/>
-			<div class="hobby-big-stamp">Graphics</div>
-		</div>
-		<div class="hobby-big-content">
-			<div class="hobby-big-kicker">Graphics Programming &nbsp;//&nbsp; OpenGL &nbsp;//&nbsp; GLSL</div>
-			<h3 class="hobby-big-title">Graphics Programming with OpenGL</h3>
-			<p class="hobby-big-desc">Going deep on how pixels actually reach the screen. Studying the rendering pipeline, writing GLSL shaders, and understanding rasterization, lighting models, and GPU architecture — the knowledge that makes every visual decision intentional.</p>
-			<div class="hobby-tags">
-				<span class="htag">OpenGL</span>
-				<span class="htag">GLSL Shaders</span>
-				<span class="htag">Rendering Pipeline</span>
+			<div class="edu">
+				<h3 class="subhead">Education &amp; teaching</h3>
+				<ul class="edu__list">
+					<li>
+						<p class="edu__title">BSc (Hons) Software Engineering, specialised in game development</p>
+						<p class="edu__meta">University of Kelaniya, Sri Lanka · 2016 – 2020</p>
+					</li>
+					<li>
+						<p class="edu__title">Visiting lecturer, game development</p>
+						<p class="edu__meta">University of Kelaniya · one semester</p>
+					</li>
+				</ul>
 			</div>
 		</div>
-	</div>
-</div>
+	</section>
 
-<!-- CONTACT -->
-<div class="sec-header" id="contact">
-	<h2>Contact</h2>
-	<span class="sec-num">06 / GET IN TOUCH</span>
-</div>
-<div class="contact-wrap">
-	<div class="contact-left">
-		<h2 class="contact-big">LET'S<br>MAKE<br><span class="red">GAMES.</span></h2>
-		<p class="contact-sub">Open to new roles and collaborations.<br>Drop a line — I respond fast.</p>
-		<a href="mailto:sakithanavod1994@gmail.com" class="email-link">sakithanavod1994@gmail.com</a>
-	</div>
-	<div class="contact-right">
-		<div>
-			<div class="contact-links-header">Find me online</div>
-			<a href="https://www.fab.com/listings/bc6b11d0-25d7-4d62-bd16-0e4e02577c2d" class="clink" target="_blank" rel="noopener">
-				<span class="clink-label" style="color:var(--gold);">Fab Marketplace</span>
-				<span class="clink-handle">Sonic Interaction System &rarr;</span>
-			</a>
-			<a href="https://www.linkedin.com/in/sakitha-amarsinghe/" class="clink" target="_blank" rel="noopener">
-				<span class="clink-label">LinkedIn</span>
-				<span class="clink-handle">sakitha-amarsinghe &rarr;</span>
-			</a>
-			<a href="https://github.com/sakithanavod" class="clink" target="_blank" rel="noopener">
-				<span class="clink-label">GitHub</span>
-				<span class="clink-handle">sakithanavod &rarr;</span>
-			</a>
-			<a href="https://github.com/ThatsUnreal" class="clink" target="_blank" rel="noopener">
-				<span class="clink-label">GitHub (YT)</span>
-				<span class="clink-handle">ThatsUnreal &rarr;</span>
-			</a>
-			<a href="https://www.youtube.com/channel/UCnXO5pQCNA7NwCBpLpCvmGA" class="clink" target="_blank" rel="noopener">
-				<span class="clink-label">YouTube</span>
-				<span class="clink-handle">Channel &rarr;</span>
-			</a>
-		</div>
-		<div>
-			<div class="contact-links-header" style="margin-bottom:0.5rem;">Location</div>
-			<div style="font-family:'Space Mono',monospace; font-size:0.7rem; line-height:1.9; color:rgba(232,228,220,0.4);">
-				Colombo, Sri Lanka<br>+94 76 421 8560
+	<!-- ============================================================
+	     06 — ABOUT
+	     ============================================================ -->
+	<section class="section section--about" id="about" aria-labelledby="about-title">
+		<div class="wrap">
+		<div class="about__grid">
+			<header class="section-head section-head--stacked">
+				<p class="section-head__num" aria-hidden="true">06</p>
+				<h2 class="section-head__title" id="about-title">About</h2>
+			</header>
+			<div class="about__text">
+				<p class="about__lead">I started at Arimac in Colombo in 2018, working in Unity and then on NIRO in Unreal Engine&nbsp;4. Since 2022 my work has been in Unreal and C++.</p>
+				<p>I studied Software Engineering at the University of Kelaniya, specialising in game development, and later went back for a semester to teach it. Outside work I mostly play action RPGs, horror and shooters, and I rebuild mechanics from the ones I like, which is where the prototypes above come from.</p>
+				<p>Right now I&rsquo;m spending my spare time on the layers under the engine: learning graphics programming with OpenGL and GLSL, and writing small games in C with raylib.</p>
 			</div>
+			<figure class="about__photo">
+				<img src="images/web/portrait-480.webp" width="480" height="480" loading="lazy" decoding="async" alt="Portrait of Sakitha Navod Amarasinghe">
+			</figure>
 		</div>
-	</div>
-</div>
+		</div>
+	</section>
 
-<div class="footer-base">
-	<span class="footer-copy">&copy; 2026 Sakitha Navod Amarasinghe. All rights reserved.</span>
-	<span class="footer-loc">Colombo, Sri Lanka</span>
-</div>
+	<!-- ============================================================
+	     07 — CONTACT
+	     ============================================================ -->
+	<section class="section section--contact" id="contact" aria-labelledby="contact-title">
+		<div class="wrap contact__grid">
+			<div class="contact__main">
+				<p class="section-head__num" aria-hidden="true">07</p>
+				<h2 class="contact__title" id="contact-title">Hiring for gameplay or Unreal engineering?</h2>
+				<p class="contact__lead">Email is the quickest way to reach me. I&rsquo;m based in Colombo, Sri Lanka, and have worked remotely with a studio in Germany.</p>
+				<p class="contact__email">
+					<a href="mailto:sakithanavod1994@gmail.com">sakithanavod1994@gmail.com</a>
+					<button class="copy-btn" type="button" data-copy="sakithanavod1994@gmail.com" hidden>Copy</button>
+					<span class="copy-status" role="status" aria-live="polite"></span>
+				</p>
+			</div>
+			<ul class="contact__links">
+				<li><a href="images/sakitha_navod_cv.pdf" download><span class="contact__label">CV</span><span class="contact__handle">Download PDF</span></a></li>
+				<li><a href="https://www.linkedin.com/in/sakitha-amarsinghe/" target="_blank" rel="noopener"><span class="contact__label">LinkedIn</span><span class="contact__handle">in/sakitha-amarsinghe</span></a></li>
+				<li><a href="https://github.com/sakithanavod" target="_blank" rel="noopener"><span class="contact__label">GitHub</span><span class="contact__handle">sakithanavod</span></a></li>
+				<li><a href="https://github.com/ThatsUnreal" target="_blank" rel="noopener"><span class="contact__label">GitHub</span><span class="contact__handle">ThatsUnreal · YouTube project code</span></a></li>
+				<li><a href="https://www.youtube.com/channel/UCnXO5pQCNA7NwCBpLpCvmGA" target="_blank" rel="noopener"><span class="contact__label">YouTube</span><span class="contact__handle">Mechanic breakdowns</span></a></li>
+				<li><a href="https://www.fab.com/listings/bc6b11d0-25d7-4d62-bd16-0e4e02577c2d" target="_blank" rel="noopener"><span class="contact__label">Fab</span><span class="contact__handle">Sonic Interaction System</span></a></li>
+				<li><a href="tel:+94764218560"><span class="contact__label">Phone</span><span class="contact__handle">+94 76 421 8560</span></a></li>
+			</ul>
+		</div>
+	</section>
+
+</main>
+
+<footer class="site-footer">
+	<div class="wrap site-footer__inner">
+		<p>&copy; 2026 Sakitha Navod Amarasinghe</p>
+		<p>Game screenshots belong to their respective studios and publishers.</p>
+		<p><a href="#top">Back to top</a></p>
+	</div>
+</footer>
 
 </body>
 </html>
